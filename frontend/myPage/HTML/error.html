@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - Something Went Wrong</title>
+    <link th:rel="stylesheet" th:href="@{css/error.css}">
+</head>
+<body>
+<div class="error-container">
+    <h1>Oops! Something went wrong.</h1>
+    <p>We couldn't find the page you were looking for.</p>
+    <p>Error code: <strong>${status}</strong></p> <!-- This will show the error code dynamically -->
+    <p><a href="/">Go back to Home</a></p>
+</div>
+</body>
+</html>

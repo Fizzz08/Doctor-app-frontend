@@ -1,0 +1,514 @@
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Base Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Table Header and Cell */
+th, td {
+    padding: 12px 20px;
+    border-bottom: 1px solid #00648f;
+    text-align: center;
+}
+
+/* Header Styling */
+th {
+    background-color: #3A3335;
+    color: white;
+    white-space: nowrap;
+}
+
+/* Rounded Header Corners */
+th:first-child {
+    border-top-left-radius: 10px;
+    white-space: nowrap;
+}
+th:last-child {
+    border-top-right-radius: 10px;
+    white-space: nowrap;
+}
+
+
+
+
+/* Row Striping */
+tr:nth-child(even) {
+    background-color: #7bc0eb;;
+}
+tr:nth-child(odd) {
+    background-color: #eaf6ff;
+}
+
+/* Image Column */
+td img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+
+.days-container {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    margin-top: -5px;
+    flex-wrap: wrap;
+}
+.day-btn {
+    padding: 4px 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    transition: all 0.2s ease;
+}
+.day-btn.selected {
+    background-color: #3498db;
+    color: white;
+    border-color: #1d8ad3;
+}
+#availableDays {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Available Time Column - Target directly via class */
+td.available-time {
+    min-width: 220px;
+    white-space: pre-wrap; /* Respect line breaks if applied */
+    word-break: break-word;
+    line-height: 1.5; /* Increase space between lines */
+    padding: 10px;
+}
+
+/* Pagination Container */
+#pagination {
+    display: flex;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #eaf6ff;
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+/* Pagination Links */
+#pagination a {
+    color: black;
+    padding: 9px 12px;
+    margin: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Active Page */
+#pagination a.active {
+    background-color: #271a53;
+    color: whitesmoke;
+}
+
+
+/* Pagination Numbers Container */
+#pageNumbersContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+#pageNumbers {
+    display: flex;
+    padding: 2px;
+}
+
+#pageNumbers button {
+    margin: 0 4px;
+    padding: 5px 10px;
+    border: none;
+    background: #7bc0eb;
+    cursor: pointer;
+    border-radius: 4px;
+}
+#pageNumbers button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+#pageNumbers button i {
+    pointer-events: none;
+}
+
+
+
+#pageNumbers span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px; /* match your button height */
+}
+
+
+/* Go To Page Input */
+input[type=number] {
+    width: 40px;
+    height: 30px;
+    border: 1px solid lightgray;
+    text-align: center;
+    margin: 5px;
+    border-radius: 5px;
+    outline: none;
+}
+
+/* Remove Spinner Buttons */
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Go To Page Button */
+#goToPage {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#goToPage button {
+    height: 35px;
+    padding: 0 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: #4c4a4a;
+    color: whitesmoke;
+    cursor: pointer;
+}
+
+/* Entries Display */
+#entriesDisplayDiv {
+    display: flex;
+    padding-left: 25px;
+}
+#entriesDisplayDiv span {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/* RESPONSIVE HANDLING */
+
+/* On smaller screens, make table scrollable instead of stacking */
+@media screen and (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        width: 100%;
+        table-layout: auto;
+    }
+
+    th, td {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    td.available-time {
+        white-space: normal;
+        word-break: break-word;
+        line-height: 1.4;
+        min-width: 220px;
+    }
+}
+
+/* Extra small screens (mobile) */
+@media screen and (max-width: 480px) {
+    table {
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    td.available-time {
+        font-size: 12px;
+        min-width: 200px;
+        white-space: normal;
+    }
+}
+
+.centered-column {
+    text-align: center;
+}
+
+.leftalign-column {
+    text-align: left;
+}
+
+.sort-arrows {
+  font-size: 0.7em;
+  margin-left: 2px;
+  cursor: pointer;
+}
+
+
+
+#addDoctorContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    padding: 20px; /* Reduced padding */
+    z-index: 1000;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Heading */
+#addDoctorContainer h2 {
+    text-align: center;
+    margin: 2px;
+    font-size: 20px;
+    color: #2c3e50;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+
+/* Labels */
+#addDoctorForm label {
+    display: block;
+    font-weight: bold;
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 3px; /* Closer to input */
+}
+
+/* Inputs */
+#addDoctorForm input {
+    width: 100%;
+    height: 32px; /* Smaller height */
+    padding: 6px 8px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Reduced spacing between fields */
+    margin-top: 3px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+/* Time picker (add doctor feature) */
+.time-container{
+    margin-top: 2px;
+}
+
+/* Focus effect */
+#addDoctorForm input:focus {
+    border-color: #3498db;
+}
+
+
+/* Buttons */
+.add-doctor-buttons button {
+    width: 48%;
+    padding: 8px;
+    font-size: 13px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Add button */
+.add-doctor-buttons button:first-child {
+    background-color: #3498db;
+    color: white;
+}
+
+/* Cancel button */
+.add-doctor-buttons button:last-child {
+    background-color: #e74c3c;
+    color: white;
+}
+
+/* Button hover */
+.add-doctor-buttons button:hover {
+    transform: translateY(-1px);
+}
+
+.add_btn {
+    background-color: #007bff; /* Primary blue */
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.add_btn:hover {
+    background-color: #0056b3; /* Darker blue */
+    transform: scale(1.05);
+}
+
+.add_btn:active {
+    background-color: #003d80;
+    transform: scale(0.98);
+}
+
+
+.add-doctor-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.cancel-btn {
+    background-color: #dc3545; 
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.add-doctor-btn i, .cancel-btn i {
+    font-size: 18px;
+}
+
+
+.c1{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+
+.edit-btn, .delete-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.edit-btn {
+    background-color: #007bff; /* Blue for edit */
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.delete-btn {
+    background-color: #dc3545; /* Red for delete */
+    color: white;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.edit-btn i, .delete-btn i {
+    font-size: 16px;
+}
+
+/* Container for Sort By Feature */
+.SortingContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 6px;
+    padding-right: 8px;
+}
+
+/* Sort By Label */
+.sort-label {
+    font-weight: bold;
+    font-style: italic;
+    margin-right: 3px;
+    font-size: 14px;
+}
+
+/* Dropdown Style */
+.sort-select {
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+
+
+#searchInput {
+    height: 26px;
+    width: 300px;
+    padding: 5px;
+    padding-left: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.MainContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 0;
+}
+
+.heading{
+    margin-right: 470px;
+}
+
+
+
+.sort-arrow {
+  color: gray;
+  font-size: 0.9em;
+  margin-left: 5px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.sort-arrow.active {
+  color: blue;
+}

@@ -1,0 +1,84 @@
+/* Global Styles */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #d0f0fc, #f0f9fe);
+}
+
+/* Ensuring full width layout */
+main {
+    margin: 15px;
+    padding-top: 0;
+}
+
+
+/* Heading aligned to the left */
+.recent-title {
+    text-align: left;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    margin-top: 0;
+    color: #2d639c;  /* Professional Blue */
+    font-size: 26px;  /* Bigger for clarity */
+    font-weight: bold;  /* Stronger emphasis */
+    border-left: 5px solid #007bff; /* Left border for styling */
+    background: linear-gradient(to right, rgba(0, 123, 255, 0.1), transparent); /* Light blue fade effect */
+    display: inline-block; /* Ensures background wraps correctly */
+    padding-left: 15px; /* Adjust spacing after border */
+}
+
+
+/* Appointment Cards (No spaces between them) */
+#appointments-list {
+    width: 100%;
+}
+
+.Text-Container{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffff;
+    border-left: 4px solid #007bff;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #333;
+    margin: 0;
+    margin-bottom: 2px;
+    border-radius: 0;
+    text-align: start;
+}
+
+.Status {
+    position: absolute;
+    right: 140px;
+}
+
+.appointment-card h3 {
+    margin: 0;
+    color: #007bff;
+    font-size: 18px;
+}
+
+/* Styling for "No Appointments" and Error Cards */
+.no-appointments, .error-appointments {
+    border-left: 4px solid red;  /* Highlight error with red */
+    font-weight: bold;
+    background: #ffe6e6;  /* Light red for errors */
+    color: red;
+}
+
+.no-appointments, .error-appointments h3 {
+    margin: 0;
+    color: red;
+    font-size: 18px;
+}
+
+.appointment-card p {
+    margin: 3px 0;
+    font-size: 14px;
+    color: #555;
+}
+
