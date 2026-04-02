@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign-up Form</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="gradient-custom-3">
+<!-- Success message box -->
+<div id="success-message" class="successMessageBox"></div>
+
+<div class="container gradient-custom-4">
+    <h2>Create an account</h2>
+    <form id="myForm" action="/register" method="post">
+
+        <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required>
+            <span id="email-error" style="color: red; display: none;"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+            <span id="password-error" style="color: red; display: none;"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Repeat your password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span id="confirm-password-error" style="color: red; display: none;"></span>
+        </div>
+
+        <div class="form-group1">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">I agree to the <a href="#">Terms of Service</a></label>
+        </div>
+
+        <button type="submit" id="registerButton" disabled>Register</button>
+
+        <p>Already have an account? <a href="/myPage/HTML/login.html">Login here</a></p>
+    </form>
+</div>
+
+<script src="../js/validate.js"></script>
+
+</body>
+</html>

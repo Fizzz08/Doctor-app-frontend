@@ -1,0 +1,332 @@
+
+/* Body Styling */
+html,body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #d0f0fc, #f0f9fe);
+}
+
+main {
+    margin: 15px;
+    padding-top: 0;
+}
+
+
+.Book-title {
+    text-align: left;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    margin-top: 0;
+    color: #2d639c;
+    font-size: 26px;
+    font-weight: bold;
+    border-left: 5px solid #007bff;
+    background: linear-gradient(to right, rgba(0, 123, 255, 0.1), transparent);
+    display: inline-block;
+    padding-left: 15px;
+}
+
+/* Header Styling */
+.heading h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #007bff; /* Brighter blue for header */
+}
+
+
+/* Doctor Card */
+.doctor-card {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 4px;
+    padding: 0px 30px;
+    background-color: #f0f9fe; /* Subtle gradient matching the container */
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #007bff;
+    border-radius: 0;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    margin-right: 8px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.2s ease;
+}
+
+#doctorsList{
+   width: 100%;
+}
+
+
+.doctor-info {
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
+.grp {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 25px;
+    margin-left: 25px;
+    padding: 8px;
+}
+
+.grp h2, p {
+    margin-top: -20px;
+    padding: 8px;
+    font-size: 16px;
+    color: #333; /* Darker text for readability */
+}
+
+/* Book Button */
+.book-btn {
+    position: absolute;
+    right: 40px;
+    width: 150px;
+    height: 40px;
+    background-color: #66c7ff; /* Align with button color in home.css */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 20px;
+}
+
+.book-btn:hover {
+    background-color: #0098cc; /* Consistent hover effect */
+}
+
+/* Modal Styling */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff; /* White background to match the container */
+    border-radius: 15px; /* Rounded corners to match the theme */
+    width: 400px;
+    max-width: 90%;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for subtle depth */
+    z-index: 999;
+}
+
+/* Modal Content */
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Modal Heading */
+.modal-content h3 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #007bff; /* Align with header color */
+}
+
+/* Modal Paragraph */
+.modal-content p {
+    text-align: center;
+    font-size: 1em;
+    color: #333; /* Dark text for readability */
+}
+
+/* Modal Labels */
+.modal-content label {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: #333; /* Matching color */
+}
+
+/* Modal Select */
+.modal-content select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    margin-top: -10px;
+}
+
+/* Modal Buttons */
+.modal-content button {
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+
+/* Select Date */
+/* Style for the date picker container */
+#datePicker {
+  width: -webkit-fill-available;
+  font-family:  'Poppins',sans-serif;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #397bf6c7;
+  border-radius: 5px;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  margin-bottom: -3px;
+}
+
+/* Focused style */
+#datePicker:focus {
+  border-color: #2b69dcd4;
+  box-shadow: 0 4px 8px rgb(47 159 202 / 50%);
+}
+
+/* Sticky calendar popup */
+.flatpickr-calendar {
+  position: sticky;
+  top: 20px; /* Adjust based on your UI */
+  z-index: 1000; /* Ensures it stays on top */
+  background: white; /* Optional: Add a background */
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* select time */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    padding: 10px;
+    margin-top: -5px;
+    margin-bottom: -5px;
+}
+
+.grid-item {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.grid-item:hover {
+    background-color: #e2e6ea;
+}
+
+.grid-item.disabled {
+    background-color: #d3d3d3;
+    color: #6c757d;
+    pointer-events: none; /* Disable interaction */
+}
+
+.grid-item.selected {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+
+.disabled-slot {
+    background-color: gray;
+    color: white;
+    cursor: not-allowed;
+}
+
+
+.no-slots-msg {
+    width: 22rem;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 5px;
+    margin-top: -2px;
+    margin-bottom: -5px;
+    text-align: center;
+    color: #666;
+    font-style: italic;
+}
+
+/* Confirmation Button */
+.modal-content button:first-of-type {
+    background-color: #66c7ff; /* Matching button color */
+    color: white;
+}
+
+/* Cancel Button */
+.modal-content button:last-of-type {
+    background-color: #bbb; /* Gray cancel button */
+    color: #333;
+}
+
+/* Button Hover Effects */
+.modal-content button:first-of-type:hover {
+    background-color: #0098cc; /* Darker blue on hover */
+}
+
+.modal-content button:last-of-type:hover {
+    background-color: #999; /* Slightly darker gray on hover */
+}
+
+/* Hidden Class */
+.hidden {
+    display: none;
+}
+
+.message-box {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4377b4;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure it's above other elements */
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.message-box {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.message-box.fade-out {
+    animation: fadeOut 0.5s ease-in-out;
+}
+
+
+.app-footer p{
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: white;
+    padding:0;
+    margin:5px 0;
+}

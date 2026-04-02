@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  <script src="../js/auth.js"></script>
+  <link rel="stylesheet" href="../css/profile.css">
+  <link rel="stylesheet" href="../css/home.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Montserrat&family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Header -->
+<header class="app-header">
+  <div class="logo-section">
+    <img src="../image/logo2.png" alt="App Logo" class="logo">
+    <span class="app-name">Chikitsa</span>
+  </div>
+
+  <div class="profile-dropdown">
+    <div class="contain">
+      <img src="../image/profile.jpg" alt="Profile Image" class="profile-img" id="profileImg">
+      <span class="welcome-message">Welcome, User</span>
+    </div>
+    <div class="dropdown-content" id="dropdownMenu">
+      <div class="dropdown-header">
+        <img src="../image/profile.jpg" alt="Profile Image" class="dropdown-profile-img">
+        <span class="welcome-message" style="color:black">Welcome, User</span>
+      </div>
+      <a href="profile.html">Profile</a>
+      <a href="Home.html" class="active">Home</a>
+      <a href="recentAppointment.html">Recent Appointments</a>
+      <a href="#settings">Settings</a>
+      <a href="#" id="logoutButton">Logout</a>
+    </div>
+  </div>
+</header>
+
+<!-- Profile Content -->
+<main>
+  <div class="container-profile">
+    <h2 class="profile-title">Profile</h2>
+    <div class="profile-sidebar">
+      <div class="profile-image-section">
+        <img src="../image/profile.jpg" alt="Profile Picture" class="profile-picture" id="profilePicture">
+        <input type="file" id="profileUpload" accept="image/*" hidden>
+        <button class="btn-upload" onclick="document.getElementById('profileUpload').click()">
+          Change Photo
+        </button>
+      </div>
+      <div class="quick-info">
+        <h3 id="userFullName"></h3>
+        <p id="Email"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-content">
+    
+    <div class="form-actions">
+      <button type="button" class="btn-edit" id="editButton">Edit Profile</button>
+      <button type="submit" class="btn-save" id="saveButton" hidden>Save Changes</button>
+    </div>
+    <form id="profileForm" action="/save-profile" method="POST">
+
+      <div class="form-group">
+          <label for="firstName">First Name <span class="asterisk">*</span></label>
+          <input type="text" name="firstName" id="firstName">
+          <span class="error-msg" id="firstNameError">First name is required.</span>
+      </div>
+  
+      <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" name="lastName" id="lastName">
+          <span class="error-msg" id="lastNameError"></span>
+      </div>
+  
+      <div class="form-group">
+          <label for="gender">Gender <span class="asterisk">*</span></label>
+          <select name="gender" id="gender">
+              <option value="">Select Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+          </select>
+          <span class="error-msg" id="genderError">Gender is required.</span>
+      </div>
+  
+      <div class="form-group">
+          <label for="dob">Date of Birth <span class="asterisk">*</span></label>
+          <input type="date" name="dob" id="dob">
+          <span class="error-msg" id="dobError">Date of birth is required.</span>
+      </div>
+  
+      <div class="form-group">
+          <label for="address">Address <span class="asterisk">*</span></label>
+          <textarea name="address" id="address" rows="3"></textarea>
+          <span class="error-msg" id="addressError">Address is required.</span>
+      </div>
+  
+      <div class="form-row">
+          <div class="form-group">
+              <label for="phone">Phone Number <span class="asterisk">*</span></label>
+              <input type="tel" name="phone" id="phone">
+              <span class="error-msg" id="phoneError">Phone number is required.</span>
+          </div>
+  
+          <div class="form-group">
+              <label for="emergencyContact">Emergency Contact <span class="asterisk">*</span></label>
+              <input type="tel" name="emergencyContact" id="emergencyContact">
+              <span class="error-msg" id="emergencyContactError">Emergency contact is required.</span>
+          </div>
+      </div>
+  
+  </form>
+  </div>
+
+</main>
+
+<!-- Footer (Same as other pages) -->
+<footer class="app-footer">
+  <p>&copy; 2024 Chikitsa App. All rights reserved.</p>
+  <p>Contact us: support@Chikitsa.com | Phone: +91 12-345-6789</p>
+</footer>
+
+
+<script src="../js/profile.js"></script>
+<script src="../js/homeValidate.js"></script>
+</body>
+</html>

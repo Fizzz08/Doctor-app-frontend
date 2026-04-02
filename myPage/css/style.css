@@ -1,0 +1,113 @@
+/* Background gradient styles */
+.gradient-custom-3 {
+    background: linear-gradient(to right, rgba(200, 225, 250, 1), rgba(220, 240, 255, 1)); /* Softer blue gradient */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.gradient-custom-4 {
+    background: #ffffff; /* White background for the form container */
+    padding: 20px;
+    border-radius: 10px; /* Same border radius as login.css */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Light shadow for subtle depth */
+    width: 300px; /* Smaller form container */
+    height: auto; /* Adjust height */
+    min-height: 300px; /* Reduced height for the container */
+    text-align: left; /* Align text to the left */
+}
+
+/* Form styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #ffffff; /* Simple white background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+    color: #007bff; /* Brighter blue for heading */
+    font-size: 24px; /* Medium-sized font */
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 10px; /* Reduced space between form groups */
+}
+
+.form-group1 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Reduced space for checkbox */
+}
+
+.form-group1 label {
+    margin-top: 0; /* Remove extra space above label */
+    font-size: 14px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333; /* Darker text for better contrast */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc; /* Light border for input fields */
+    border-radius: 4px;
+    background-color: #ffffff; /* White background for inputs */
+    font-size: 14px; /* Smaller font size */
+}
+
+input[type="checkbox"] {
+    margin-right: 5px;
+    margin-top: 0; /* Remove space above checkbox */
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: #66c7ff; /* Light blue button */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px; /* Adjusted margin for button */
+}
+
+button:hover {
+    background-color: #0098cc; /* Darker blue on hover */
+}
+
+p {
+    text-align: center;
+    font-size: 14px;
+    color: #444;
+}
+
+a {
+    color: #5daedf; /* Light blue for links */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #4a3d6d; /* Darker shade on hover */
+}
+

@@ -1,0 +1,139 @@
+/* Background styles */
+.gradient-custom-3 {
+    background: linear-gradient(to right, rgba(200, 225, 250, 1), rgba(220, 240, 255, 1)); /* Lighter blue gradient */
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gradient-custom-4 {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: left;
+}
+
+#logout-message {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4377b4;
+    color: white;
+    padding: 12px 18px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #2e5d94;
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    text-align: center;
+    max-width: 400px;
+    white-space: nowrap;
+}
+
+#successMessageBox {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2a5485;
+    color: white;
+    padding: 12px 18px;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #305075;
+    border-radius: 5px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    text-align: center;
+    max-width: 400px;
+    white-space: nowrap;
+}
+
+
+
+/* Form styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: #ffffff; /* Simple white background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #007bff; /* Brighter blue */
+    font-size: 24px; /* Medium-sized font */
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc; /* Light border for input fields */
+    border-radius: 4px;
+    background-color: #ffffff; /* White background for inputs */
+    font-size: 14px; /* Smaller font size */
+}
+
+
+input[type="checkbox"] {
+    margin-right: 8px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #66c7ff; /* Light blue button */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0098cc; /* Darker blue on hover */
+}
+
+p {
+    text-align: center;
+    font-size: 14px;
+    color: #444;
+}
+
+a {
+    color: #5daedf; /* Blue link color */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #4a3d6d; /* Darker shade on hover */
+}

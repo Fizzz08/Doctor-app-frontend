@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin-Dashboard</title>
+    <script src="../js/auth.js"></script>
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+      
+    <div class="MainContainer">
+        <div class="heading"><h2>Admin Dashboard</h2></div>
+        <div id="searchContainer">
+            <input type="text" id="searchInput" placeholder="Search by Id, Name, Specialization, or Location" onkeyup="filterDoctors()" />
+        </div>
+
+        <div class="SortingContainer">
+            <!-- Sorting Arrows (These apply to all columns, but only the active column will show the arrow) -->
+            <span id="sortOrder" class="sort-arrow" onclick="toggleSortOrder()">
+                <span id="ascArrow" class="active-arrow">&#9650;</span>
+                <span id="descArrow" class="inactive-arrow">&#9660;</span>
+            </span>
+            
+            <!-- Dropdown to select the column for sorting -->
+            <span class="sort-label">Sort By:</span>
+            <select id="sortColumn" class="sort-select" onchange="sortDoctors()">
+                <option value="id">Id</option>
+                <option value="name">Name</option>
+                <option value="specialization">Specialization</option>
+                <option value="yearOfExp">Experience</option>
+                <option value="fees">Fees</option>
+                <option value="location">Location</option>
+                <option value="availableDays">Available Days</option>
+                <option value="availableTime">Available Time</option>                
+            </select> 
+        </div>
+    </div>       
+    
+        <div class="table-responsive">
+        <table id="myTable">
+          <thead>
+            <tr>
+                <th data-column="id">Id <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="name">Name <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="specialization">Specialization <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="location">Location <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="experience">Exp <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="days">Available days <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="fees">Fee <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="time">Available Time Slots</th>
+                    <th><button id="showAddDoctorForm" class="add_btn">Add Doctor</button></th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Rows will be dynamically inserted -->
+        </tbody>
+        </table>
+
+        </div>
+        
+        <div id="pagination">
+            <div class="Rows">
+                <label for="rowsInput">Rows per page: </label>
+                <input type="number" id="rowsInput" min="1" value="6" max="100">
+            </div>
+
+            <div id="entriesDisplayDiv">
+                Showing <span id="from"> </span> to <span id="to"></span> out of <span id="totalTableEntries"></span> entries 
+            </div>
+                <div id="pageNumbersContainer">
+                    <div id="pageNumbers"></div>
+                    <div id="goToPage">Go to Page <input id="pageNumberInput" type="number"><button id="goToPageButton">Confirm</button></div>
+                </div>
+            </div>
+
+            <div id="addDoctorContainer" style="display: none";>
+                <h2>Add Doctor</h2>
+                <form id="addDoctorForm">
+                    <label for="doctorName">Doctor Name</label>
+                    <input type="text" id="name" required>
+            
+                    <label for="specialization">Specialization</label>
+                    <input type="text" id="specialization" required>
+            
+                    <label for="location">Location</label>
+                    <input type="text" id="location" required>
+            
+                    <label for="availableDays">Available Days</label>
+                    <input type="text" id="availableDays" placeholder="Selected days will appear here" readonly>
+
+                    <div class="days-container" id="daysContainer">
+                        <div class="day-btn" data-day="Monday">Mon</div>
+                        <div class="day-btn" data-day="Tuesday">Tues</div>
+                        <div class="day-btn" data-day="Wednesday">Wed</div>
+                        <div class="day-btn" data-day="Thursday">Thurs</div>
+                        <div class="day-btn" data-day="Friday">Fri</div>
+                        <div class="day-btn" data-day="Saturday">Sat</div> <!-- fixed spelling -->
+                        <div class="day-btn" data-day="Sunday">Sun</div>
+                    </div>
+                
+                    <label for="availableTime">Available Time</label>
+                    <input type="hidden" id="availableTime" name="availableTime" required>
+
+                    <div class="time-container">
+                        <input type="text" id="startTime" placeholder="Start Time" style="width:120px;" readonly>
+                        <input type="text" id="endTime" placeholder="End Time" style="width:120px;" readonly>
+                    </div>
+
+                    <label for="yearOfExp">Years of Experience</label>
+                    <input type="number" id="yearOfExp" required>
+            
+                    <label for="fees">Fees</label>
+                    <input type="number" id="fees" required>
+            
+                    <div class="add-doctor-buttons">
+                        <button id="submitAddDoctor" type="button" class="add-doctor-btn" onclick="addDoctor()">
+                            <i class="fa-solid fa-user-plus"></i> Add Doctor
+                        </button>
+                        <button id="closeAddForm" type="button" class="cancel-btn" onclick="closeAddDoctor()">
+                            <i class="fa-solid fa-xmark"></i> Cancel
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </body>
+    </html>
+    <!-- <script src="../js/dashboard.js"></script> -->
+    <script src="../js/adminjs/apiService.js"></script>
+    <script type="module" src="../js/adminjs/main.js"></script>
+</body>
+</html>

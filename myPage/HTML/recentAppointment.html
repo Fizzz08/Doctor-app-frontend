@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recent Appointments</title>
+  <script src="../js/auth.js"></script>
+  <link rel="stylesheet" href="../css/home.css">
+  <link rel="stylesheet" href="../css/recentApp.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Montserrat&family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Header -->
+<header class="app-header">
+  <div class="logo-section">
+    <img src="../image/logo2.png" alt="App Logo" class="logo">
+    <span class="app-name">Chikitsa</span>
+  </div>
+
+  <div class="profile-dropdown">
+    <div class="contain">
+      <img src="../image/profile.jpg" alt="Profile Image" class="profile-img">
+      <span class="welcome-message">Welcome, User</span>
+    </div>
+    <div class="dropdown-content">
+      <div class="dropdown-header">
+        <img src="../image/profile.jpg" alt="Profile Image" class="dropdown-profile-img">
+        <span class="welcome-message" style="color:black">Welcome, User</span>
+      </div>
+      <a href="profile.html">Profile</a>
+      <a href="Home.html">Home</a>
+      <a href="recentAppointment.html" class="active">Recent Appointments</a>
+      <a href="#settings">Settings</a>
+      <a href="#" id="logoutButton">Logout</a>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main>
+  <h2 class="recent-title">Recent Appointments</h2>
+  <div id="appointments-list"></div>
+</main>
+
+<!-- Footer -->
+<footer class="app-footer">
+  <p>&copy; 2024 Chikitsa App. All rights reserved.</p>
+  <p>Contact us: support@Chikitsa.com | Phone: +91 12-345-6789</p>
+</footer>
+
+<script src="../js/recentApp.js"></script>
+<script src="../js/homeValidate.js"></script>
+
+</body>
+</html>
