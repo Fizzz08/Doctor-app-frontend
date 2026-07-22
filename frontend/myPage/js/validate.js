@@ -1,3 +1,8 @@
+// const BASE_URL = "";
+
+// document.getElementById("myForm").action = BASE_URL + `/myPage/HTML/index.html`;
+// document.getElementById("loginLink").href = BASE_URL + `/myPage/HTML/login.html`;
+
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("myForm");
     const registerButton = document.querySelector("button[type='submit']");
@@ -90,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("confirmPassword").addEventListener("input", validateConfirmPassword);
 
     async function validateForm(event) {
-        event.preventDefault(); // Prevent normal form submission
+        event.preventDefault();
 
         const isEmailValid = validateEmail();
         const isPasswordValid = validatePassword();
@@ -103,36 +108,40 @@ document.addEventListener("DOMContentLoaded", function () {
         const isEmailExists = await emailExist();
         if (isEmailExists) return;
 
+        // ===== ROLE SELECTION (NEW) =====
+        const selectedRole =
+            document.querySelector('input[name="role"]:checked')?.value || "USER";
+
         // Create JSON object
-            const userData = {
-                name: document.getElementById("name").value.trim(),
-                email: document.getElementById("email").value.trim(),
-                password: document.getElementById("password").value.trim(),
-                confirmPassword: document.getElementById("confirmPassword").value.trim(),
-            };
+        const userData = {
+            name: document.getElementById("name").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            password: document.getElementById("password").value.trim(),
+            role: document.querySelector('input[name="role"]:checked').value
+        };
 
-            try {
-                const response = await fetch("http://localhost:8080/api/register", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json", // Ensure JSON is sent
-                    },
-                    body: JSON.stringify(userData), // Convert JS object to JSON string
-                });
+        try {
+            const response = await fetch("http://localhost:8080/api/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData),
+            });
 
-                const responseData = await response.json();
+            const responseData = await response.json();
 
-                if (response.ok) {
-                    sessionStorage.setItem("registrationMessage", "Registration successful! Please log in.");
-                    window.location.href = "login.html"; // Redirect to login page
-                } else {
-                    alert(responseData.message || "Registration failed. Try again.");
-                }
-                
-            } catch (error) {
-                alert("Error connecting to the server. Try again.");
-                console.error("Error:", error);
+            if (response.ok) {
+                sessionStorage.setItem("registrationMessage", "Registration successful! Please log in.");
+                window.location.href = "login.html";
+            } else {
+                alert(responseData.message || "Registration failed. Try again.");
             }
+
+        } catch (error) {
+            alert("Error connecting to the server. Try again.");
+            console.error("Error:", error);
+        }
     }
 
     form.addEventListener("submit", validateForm);

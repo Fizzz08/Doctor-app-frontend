@@ -1,9 +1,12 @@
-const BASE_URL = window.location.hostname === "localhost"
-    ? "http://localhost:3000"
-    : "https://chikithsa.netlify.app";
+const BASE_URL =
+    window.location.hostname === "localhost"
+        ? "http://localhost:3000"
+        : window.location.hostname === "127.0.0.1"
+            ? "http://localhost:63342"
+            : "https://chikithsa.netlify.app";
 
 const apiBaseUrl = 'http://localhost:8080/api/v1/doctor';
-const token = localStorage.getItem('token');
+const token = sessionStorage.getItem('token');
 
 const tableBody = document.getElementById('tableBody');
 const fromSpan = document.getElementById('from');
@@ -22,7 +25,7 @@ let rowsPerPage = 6;
 async function fetchDoctors() {
     if (!token) {
         alert('Unauthorized access. Please log in again.');
-        window.location.href = BASE_URL + '/myPage/HTML/login.html';
+        window.location.href = '../HTML/loginDemo.html';
         return;
     }
 
@@ -222,6 +225,7 @@ async function addDoctor() {
     }
 }
 
+
 const availableTimeInput = document.getElementById("availableTime");
 const startTimeInput = document.getElementById("startTime");
 const endTimeInput = document.getElementById("endTime");
@@ -243,7 +247,7 @@ function updateHiddenField() {
       availableTimeInput.value = "";
       return;
     }
-    availableTimeInput.value = `${start} - ${end}`;
+    availableTimeInput.value = `${start.toUpperCase()} - ${end.toUpperCase()}`;
   }
 }
 flatpickr(startTimeInput, {

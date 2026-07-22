@@ -13,10 +13,10 @@
 <body>
 <!-- Header -->
 <header class="app-header">
-  <div class="logo-section">
-    <img src="../image/logo2.png" alt="App Logo" class="logo">
-    <span class="app-name">Chikitsa</span>
-  </div>
+  <div class="brand" data-testid="brand-logo">
+        <div class="brand-mark" aria-hidden="true">M+</div>
+        <div class="brand-name">Medi<span>Book</span></div>
+    </div>
 
   <div class="profile-dropdown">
     <div class="contain">
@@ -38,7 +38,7 @@
 </header>
 
 <!-- Profile Content -->
-<main>
+<div class="main-profile">
   <div class="container-profile">
     <h2 class="profile-title">Profile</h2>
     <div class="profile-sidebar">
@@ -115,16 +115,16 @@
   </form>
   </div>
 
-</main>
+</div>
 
 <!-- Footer (Same as other pages) -->
 <footer class="app-footer">
-  <p>&copy; 2024 Chikitsa App. All rights reserved.</p>
-  <p>Contact us: support@Chikitsa.com | Phone: +91 12-345-6789</p>
+  <p>&copy; 2024 MediBook App. All rights reserved.</p>
+  <p>Contact us: support@medibook.com | Phone: +91 12-345-6789</p>
 </footer>
 
 
 <script src="../js/profile.js"></script>
-<script src="../js/homeValidate.js"></script>
+<script type="module" src="../js/homeValidate.js"></script>
 </body>
 </html>

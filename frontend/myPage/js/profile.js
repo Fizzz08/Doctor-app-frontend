@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const userEmail = sessionStorage.getItem("userEmail");
     const profileForm = document.getElementById("profileForm");
     const editButton = document.getElementById("editButton");
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             const response = await fetch("http://localhost:8080/api/v1/userProfile/get-profile", {
                 method: "GET",
                 headers: {
-                    "Authorization": `Bearer ${token}`,
+                    "Authorization": 'Bearer ' + token,
                     "Content-Type": "application/json"
                 }
             });

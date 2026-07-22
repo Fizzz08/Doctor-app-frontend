@@ -8,7 +8,7 @@ const apiBaseUrl = 'http://localhost:8080/api/v1/doctor';
 
 //Fetches all doctors from the API
 export async function fetchAllDoctors() {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (!token) {
         alert('Unauthorized access. Please log in again.');
         window.location.href = BASE_URL + '/myPage/HTML/login.html';
@@ -34,7 +34,7 @@ export async function fetchAllDoctors() {
  * @throws {Error} If request fails
  */
 export async function updateDoctor(id, updatedDoctor) {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const response = await fetch(`${apiBaseUrl}/${id}`, {
         method: 'PUT',
         headers: {
@@ -55,7 +55,7 @@ export async function updateDoctor(id, updatedDoctor) {
  * @throws {Error} If request fails
  */
 export async function addNewDoctor(newDoctor) {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const response = await fetch(`${apiBaseUrl}/add`, {
         method: 'POST',
         headers: {
@@ -79,7 +79,7 @@ export async function addNewDoctor(newDoctor) {
  * @throws {Error} If request fails
  */
 export async function deleteDoctorById(id) {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     const response = await fetch(`${apiBaseUrl}/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }

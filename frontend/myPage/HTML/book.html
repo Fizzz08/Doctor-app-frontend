@@ -19,9 +19,9 @@
 
 <!-- Header -->
 <header class="app-header">
-    <div class="logo-section">
-        <img src="../image/logo2.png" alt="App Logo" class="logo">
-        <span class="app-name">Chikitsa</span>
+    <div class="brand" data-testid="brand-logo">
+        <div class="brand-mark" aria-hidden="true">M+</div>
+        <div class="brand-name">Medi<span>Book</span></div>
     </div>
 
     <div class="profile-dropdown">
@@ -58,7 +58,7 @@
 
             <!-- Calendar Input -->
             <div id="calendarContainer">
-<!--                <label for="datePicker">Select a Date:</label>-->
+            <!--<label for="datePicker">Select a Date:</label>-->
                 <input type="date" id="datePicker" placeholder="Select a date">
             </div>
 
@@ -87,12 +87,12 @@
 
 <!-- Footer -->
 <footer class="app-footer">
-    <p>&copy; 2024 Chikitsa App. All rights reserved.</p>
-    <p>Contact us: support@Chikitsa.com | Phone: +91 12-345-6789</p>
+    <p>&copy; 2024 MediBook App. All rights reserved.</p>
+    <p>Contact us: support@medibook.com | Phone: +91 12-345-6789</p>
 </footer>
 
 
 <script src="../js/book.js"></script>
-<script src="../js/homeValidate.js"></script>
+<script type="module" src="../js/homeValidate.js"></script>
 </body>
 </html>

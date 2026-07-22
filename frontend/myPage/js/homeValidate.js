@@ -1,32 +1,140 @@
+import { messaging } from "./firebase.js";
+import { getToken } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
+
+async function initNotifications() {
+    try {
+        const permission = await Notification.requestPermission();
+        console.log("Notification permission:", permission);
+
+        if (permission !== "granted") return;
+
+        const registration = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
+        await navigator.serviceWorker.ready;
+
+        const fcmToken = await getToken(messaging, {
+            vapidKey: "BKvxFy-xuPgsjVRR8Pn6Wcwa_ST2xudrpEeo6SSQK5rjjIemORbV-6OHWqAp8Nx9lGWZUPzq5wTRS27BoBo9nck",
+            serviceWorkerRegistration: registration
+        });
+
+        if (!fcmToken) {
+            console.warn("❌ No FCM token received");
+            return;
+        }
+
+        console.log("🔥 FCM Token:", fcmToken);
+
+        // 🔥 Send to backend
+        const jwt = sessionStorage.getItem("token");
+        if (!jwt) {
+            console.warn("❌ No JWT found");
+            return;
+        }
+
+        await fetch("http://localhost:8080/api/v1/users/saveToken", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + jwt
+            },
+            body: JSON.stringify({ token: fcmToken })
+        });
+
+        console.log("✅ Token sent to backend");
+
+    } catch (error) {
+        console.error("🔥 Error in notifications:", error);
+    }
+}
+
+initNotifications();
 const BASE_URL = window.location.hostname === "localhost"
-    ? "http://localhost:3000"  // Local Development
-    : "https://chikithsa.netlify.app"; // Netlify Deployment
-
-// document.addEventListener('DOMContentLoaded', function () {
-//     console.log("🏠 Home Page Loaded");
-//     const tkn = localStorage.getItem("token"); 
-//     console.log("jwt token :",tkn);
-
-//     fetch('http://localhost:8080/api/userName', {
-//         method: 'GET',
-//         headers: {
-//             'Authorization': 'Bearer ' + tkn
-//         }
-//     })
-//     .then(response => response.text())
-//     .then(username => {
-//         const elements = document.getElementsByClassName('welcome-message');
-//         for (let element of elements) {
-//             element.textContent = username !== 'User not found' ? username : 'Welcome, Guest';
-//         }
-//     })
-//     .catch(error => console.error('Error fetching the username:', error));
-
+    ? (window.location.port === "3000" ? "http://localhost:3000" : "http://localhost:63342/Doctor-Appointment-Booking-App")
+    : "https://chikithsa.netlify.app";
 
     document.addEventListener('DOMContentLoaded', function () {
     console.log("🏠 Home Page Loaded");
-    const tkn = localStorage.getItem("token"); 
+    const tkn = sessionStorage.getItem("token");
     console.log("jwt token :", tkn);
+    
+    
+        
+    // Specialization Dropdown Logic
+
+    const searchInput = document.getElementById("specialization");
+    const suggestionBox = document.getElementById("suggestionBox");
+    const specialityList = document.getElementById("specialityList");
+    const popularContainer = document.getElementById("popularContainer");
+
+    // Hardcoded data
+    const popularSearches = ["Hysterectomy", "Normal Delivery"];
+
+    const specialities = [
+        "Dentist",
+        "Cardiologist",
+        "Gynecologist",
+        "General Physician",
+        "Dermatologist",
+        "ENT Specialist",
+        "Homeopath",
+        "Ayurveda"
+    ];
+
+    //Render Popular
+    function renderPopular() {
+        if (!popularContainer) return;
+
+        popularContainer.innerHTML = popularSearches.map(item => `
+            <div class="popular-item" data-value="${item}">${item}</div>
+        `).join("");
+    }
+
+    //Render Specialities
+    function renderSpecialities(list = specialities) {
+        if (!specialityList) return;
+
+        specialityList.innerHTML = list.map(spec => `
+            <div class="speciality-item" data-value="${spec}">
+                <span>${spec}</span>
+                <span>SPECIALITY</span>
+            </div>
+        `).join("");
+    }
+
+    // Show dropdown on focus
+    searchInput?.addEventListener("focus", () => {
+        suggestionBox?.classList.remove("hidden");
+        renderPopular();
+        renderSpecialities();
+    });
+
+    //Filter on typing
+    searchInput?.addEventListener("input", () => {
+        const value = searchInput.value.toLowerCase();
+
+        const filtered = specialities.filter(s =>
+            s.toLowerCase().includes(value)
+        );
+
+        renderSpecialities(filtered);
+    });
+
+    //Handle click on suggestion
+    document.addEventListener("click", (e) => {
+
+        const item = e.target.closest(".speciality-item, .popular-item");
+
+        if (item) {
+            const value = item.dataset.value;
+            searchInput.value = value;
+            suggestionBox.classList.add("hidden");
+            return;
+        }
+
+        // Hide dropdown if clicked outside
+        if (!e.target.closest(".search-wrapper")) {
+            suggestionBox?.classList.add("hidden");
+        }
+    });
 
     fetch('http://localhost:8080/api/userName', {
         method: 'GET',
@@ -43,10 +151,6 @@ const BASE_URL = window.location.hostname === "localhost"
         }
     })
     .catch(error => console.error('Error fetching the username:', error));
-
-
-
-
 
     // Profile Dropdown Toggle
     document.getElementById('profileImg')?.addEventListener('click', function () {
@@ -81,7 +185,7 @@ const BASE_URL = window.location.hostname === "localhost"
 
                 if (!tkn) {
                     alert('You are not authenticated. Please log in first.');
-                    window.location.href = BASE_URL + '/myPage/HTML/login.html';  // Redirect to login if no token
+                    window.location.href = '../HTML/loginDemo.html';  // Redirect to login if no token
                     return;
                 }
 
@@ -97,7 +201,7 @@ const BASE_URL = window.location.hostname === "localhost"
                     if (response.status === 401 || response.status === 403) {
                         alert('Session expired or unauthorized. Please log in again.');
                         sessionStorage.clear();
-                        window.location.href = '/login';
+                        window.location.href = '../HTML/loginDemo';
                         return Promise.reject('Unauthorized');
                     }
                     return response.json();
@@ -105,12 +209,12 @@ const BASE_URL = window.location.hostname === "localhost"
                 .then(data => {
                     if (data.length === 0) {
                         sessionStorage.removeItem('doctorData');
-                        window.location.href = BASE_URL + '/myPage/HTML/book.html';
+                        window.location.href = '../HTML/book.html';
                     } else {
                         sessionStorage.setItem('doctorData', JSON.stringify(data));
                         sessionStorage.setItem('searchLocation', location);
                         sessionStorage.setItem('searchSpecialization', specialization);
-                        window.location.href = BASE_URL + '/myPage/HTML/book.html';
+                        window.location.href = '../HTML/book.html';
                         // window.location.href = `http://localhost:8080/api/bookAppointment/book?location=${encodeURIComponent(location)}&specialization=${encodeURIComponent(specialization)}`;
                     }
                 })
@@ -135,9 +239,9 @@ document.addEventListener("DOMContentLoaded", function () {
     if (logoutButton) {
         logoutButton.addEventListener("click", function (event) {
             event.preventDefault();
-            sessionStorage.setItem("logoutMessage", "Successfully logged out"); // Set message
-            localStorage.clear();
-            window.location.href = "http://localhost:3000/myPage/HTML/login.html"; // Redirect
+            sessionStorage.clear();
+            sessionStorage.setItem("logoutMessage", "You’re now logged out.");
+            window.location.replace("../HTML/loginDemo.html");
         });
     }
 });

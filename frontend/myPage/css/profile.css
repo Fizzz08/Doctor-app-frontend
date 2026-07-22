@@ -1,23 +1,45 @@
-/* Global Styles */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, sans-serif;
-    flex: 1;
-    width: auto;
-    background-color: #ffffff;
-    border-radius: 15px;
-    background: linear-gradient(to right, #d0f0fc, #f0f9fe);
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+:root {
+    --primary: #0ea5e9;          /* sky-500  */
+    --primary-600: #0284c7;      /* sky-600  */
+    --primary-700: #0369a1;      /* sky-700  */
+    --primary-900: #0c4a6e;      /* sky-900  */
+    --mint: #14b8a6;             /* teal-500 */
+    --bg: #f0f9ff;               /* sky-50   */
+    --surface: #ffffff;
+    --border: #e0f2fe;           /* sky-100  */
+    --border-strong: #bae6fd;    /* sky-200  */
+    --text: #0f172a;             /* slate-900 */
+    --text-muted: #475569;       /* slate-600 */
+    --text-soft: #64748b;        /* slate-500 */
+    --danger: #dc2626;
+    --success: #059669;
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 8px 24px rgba(2, 132, 199, 0.08);
+    --shadow-lg: 0 24px 60px rgba(2, 132, 199, 0.18);
+    --radius: 14px;
+    --radius-sm: 10px;
 }
 
-main {
-    margin: 15px;
-    padding-top: 0;
-    display:flex;
+* { box-sizing: border-box; }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--text);
+    background: var(--primary-900);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.main-profile {
+    display:flex;
+    flex-direction: row;
+    padding: 20px;
+    background-color: #eaf6ff;
 }
 
 .profile-title {
@@ -28,7 +50,7 @@ main {
     color: #2d639c;  /* Professional Blue */
     font-size: 26px;  /* Bigger for clarity */
     font-weight: bold;  /* Stronger emphasis */
-    border-left: 5px solid #007bff; /* Left border for styling */
+    border-left: 5px solid #2d639c; /* Left border for styling */
     background: linear-gradient(to right, rgba(0, 123, 255, 0.1), transparent); /* Light blue fade effect */
     display: inline-block; /* Ensures background wraps correctly */
     padding-left: 15px; /* Adjust spacing after border */
@@ -62,7 +84,7 @@ main {
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #66c7ff;
+    border: 3px solid #2d639c;
 }
 
 .btn-upload {

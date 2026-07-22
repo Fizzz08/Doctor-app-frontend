@@ -1,29 +1,86 @@
-/* Global Styles */
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+:root {
+    --primary: #0ea5e9;          /* sky-500  */
+    --primary-600: #0284c7;      /* sky-600  */
+    --primary-700: #0369a1;      /* sky-700  */
+    --primary-900: #0c4a6e;      /* sky-900  */
+    --mint: #14b8a6;             /* teal-500 */
+    --bg: #f0f9ff;               /* sky-50   */
+    --surface: #ffffff;
+    --border: #e0f2fe;           /* sky-100  */
+    --border-strong: #bae6fd;    /* sky-200  */
+    --text: #0f172a;             /* slate-900 */
+    --text-muted: #475569;       /* slate-600 */
+    --text-soft: #64748b;        /* slate-500 */
+    --danger: #dc2626;
+    --success: #059669;
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 8px 24px rgba(2, 132, 199, 0.08);
+    --shadow-lg: 0 24px 60px rgba(2, 132, 199, 0.18);
+    --radius: 14px;
+    --radius-sm: 10px;
+}
+
+* { box-sizing: border-box; }
+
 html, body {
-    height: 100%;
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, sans-serif;
-    background-color: #eaf6ff;  /* Brighter background to match with the login/signup theme */
+    height: 100%;
+    font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--text);
+    background: var(--primary-900);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
-
-/* Main Content Area */
+/* ================= MAIN ================= */
 main {
-    flex: 1;  /* Takes available space so footer stays at the bottom */
+    display: flex; 
+    flex-direction: column;
     padding: 20px;
+    background-color: #eaf6ff;
 }
 
 
-/* Header Styling */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+}
+
+.brand-mark {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
+    display: grid;
+    place-items: center;
+    color: var(--primary-700);
+    font-weight: 800;
+    font-size: 22px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.18);
+}
+
+.brand-name {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+.brand-name span { color: #7dd3fc; }
+
+
+/* ================= HEADER (UNCHANGED) ================= */
 .app-header {
-    height: 40px;
+    height: 75px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background-color: #5daedf;  /* Softer blue to match the body container */
+    background-color: var(--primary-900);
     color: white;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -34,179 +91,285 @@ main {
 }
 
 .logo {
-    width:80px;
-    height:80px;
-    margin-right: -2px;
+    width: 80px;
+    height: 80px;
 }
 
-
 .app-name {
-    font-family: 'DM Sans', sans-serif;
     font-size: 22px;
     font-weight: bold;
-    display: flex;
-    align-items: center;
-    color: white; /* Text color */
-    text-shadow: 1px 1px 2px #153406d6; /* Black outline effect */
+    color: white;
+    text-shadow: 1px 1px 2px #153406d6;
+}
+
+/* ================= PROFILE ================= */
+.profile-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Dropdown wrapper */
+.profile-dropdown {
+    position: relative;
 }
 
 .contain{
-    display: flex;
-    justify-content:center;
-    align-items:center;
-}
-
-/* Profile Section */
-.profile-section {
+    width: 120px;
     display: flex;
     align-items: center;
-}
-
-.profile-img {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.welcome-message {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-}
-
-.profile-dropdown {
     position: relative;
-    display: inline-block;
+    justify-content: space-around;
 }
 
-.welcome-message-dropdown{
-    color:black;
-}
-
-.dropdown-header{
-    display:flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-/* Dropdown Styling */
+/* Dropdown box */
 .dropdown-content {
-    display: none;
     position: absolute;
-    background-color: #ffffff;
-    min-width: 180px;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    border-radius: 8px;
-    left: -145px;
-    right: -30px;
     top: -18px;
-    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    right: -30px;
+    width: 270px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-8px);
+    pointer-events: none;
+    transition: 0.2s ease;
+    z-index: 999;
 }
 
-/* Make dropdown visible */
+/* Show dropdown */
 .profile-dropdown:hover .dropdown-content {
-    display: block;
     opacity: 1;
     transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* ================= DROPDOWN HEADER ================= */
+.dropdown-header {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
 }
 
 .dropdown-profile-img {
-    width: 45px;
-    height: 45px;
+    width: 40px;   /* FIXED SIZE */
+    height: 40px;
     border-radius: 50%;
-    margin: 15px;
-    border: 1px solid white;
+    margin-right: 10px;
 }
 
-/* Dropdown Links */
+.welcome-message-dropdown {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* ================= DROPDOWN LINKS ================= */
 .dropdown-content a {
-    color: black;
     padding: 12px 16px;
-    text-decoration: none;
     display: block;
-    border-bottom: 1px solid #ddd;
-    transition: background 0.5s ease;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    transition: background 0.2s ease;
 }
 
 .dropdown-content a:hover {
-    background-color: #66c7ff;
+    background-color: #f4f8ff;
 }
-
-.dropdown-content a:last-child {
-    border-bottom: none;
-}
-
-
-/* Appointment Container Styling */
+/* ================= CONTAINER ================= */
 .appointment-container {
-    max-width: 600px;
+    max-width: 650px; 
+    width: 75%;
     margin: 50px auto;
-    background-color: #ffffff;  /* White background for the form container */
-    padding: 20px;
-    border-radius: 15px;  /* Rounded corners to match the theme */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(to right, #d0f0fc, #f0f9fe);  /* Subtle gradient for a bright and soft look */
+    padding: 28px;
+    border-radius: 16px;
+    background: linear-gradient(to right, #d0f0fc, #f0f9fe);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Heading Styling */
+/* ================= TITLE ================= */
 h1 {
     text-align: center;
-    margin-bottom: 20px;
-    color: #007bff;  /* Brighter text color for the header */
+    margin-bottom: 25px;
+    color: var(--primary-900);
+    font-weight: 600;
 }
 
-/* Label Styling */
-label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-    color: #333;  /* Darker text for better readability */
+/* ================= SEARCH LAYOUT ================= */
+.search-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 14px;
+    align-items: center;
 }
 
-/* Input and Select Field Styling */
-select, input[type="text"] {
+/* ================= LOCATION (MATCH INPUT STYLE) ================= */
+.location-box select {
     width: 100%;
-    padding: 10px;
-    margin: 5px 0 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    background: #fff;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
-#specialization{
-    width: 578px;
+.location-box select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
 }
 
-/* Button Styling */
+/* ================= SEARCH INPUT ================= */
+.search-wrapper {
+    position: relative;
+}
+
+.search-wrapper::before {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 13px;
+    opacity: 0.6;
+}
+
+#specialization {
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+#specialization:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
+/* ================= SUGGESTION BOX ================= */
+.suggestion-box {
+    position: absolute;
+    top: 108%;
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ================= SECTION TITLE ================= */
+.section-title {
+    font-size: 11px;
+    color: #777;
+    margin: 10px 0 6px;
+    font-weight: 600;
+}
+
+/* ================= POPULAR ================= */
+.popular-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.popular-item {
+    padding: 7px 14px;
+    background: #eaf4ff;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #007bff;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.popular-item:hover {
+    background: #d6ebff; /* no scaling */
+}
+
+/* ================= SPECIALITY ================= */
+.speciality-item {
+    display: flex;
+    font-size: 14px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 5px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.speciality-item:hover {
+    background: #f4f8ff; /* no movement */
+}
+
+.speciality-item span:first-child {
+    font-weight: 500;
+    color: #333;
+}
+
+.speciality-item span:last-child {
+    font-size: 10px;
+    color: #aaa;
+}
+
+/* ================= SCROLLBAR ================= */
+.suggestion-box::-webkit-scrollbar {
+    width: 5px;
+}
+
+.suggestion-box::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+/* ================= BUTTON ================= */
 .btn {
     width: 100%;
-    padding: 12px;
-    background-color: #66c7ff;  /* Bright and vibrant button color */
-    color: white;
-    border: none;
-    border-radius: 5px;
+    padding: 13px;
+    margin-top: 18px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-700) 100%);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    letter-spacing: 0.01em;
     cursor: pointer;
-    font-size: 16px;
+    transition: transform 0.15s ease, box-shadow 0.18s ease, opacity 0.18s ease;
+    box-shadow: 0 8px 18px rgba(2, 132, 199, 0.28);
 }
 
-/* Button Hover Effect */
 .btn:hover {
-    background-color: #0098cc;  /* Slightly darker blue on hover */
+    transform: translateY(-0.5px);
+    box-shadow: 0 12px 22px rgba(2, 132, 199, 0.34);
 }
 
-
-/* Footer Styling */
+/* ================= FOOTER (UNCHANGED) ================= */
 .app-footer {
     text-align: center;
     font-size: 12px;
     padding: 15px;
-    background-color: #5daedf;  /* Matching color with header */
+    background-color: var(--primary-900);
     color: white;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
-    margin-top: auto;  /* Pushes footer to the bottom */
+    box-shadow: 0 -2px 2px rgba(0, 0, 0, 0.1);
+    margin-top: auto;
 }
 
 .app-footer p {

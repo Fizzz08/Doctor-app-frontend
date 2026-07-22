@@ -10,9 +10,9 @@
 <body>
 <!-- Header -->
 <header class="app-header">
-    <div class="logo-section">
-        <img src="../image/logo2.png" alt="App Logo" class="logo">
-        <span class="app-name">Chikitsa</span>
+    <div class="brand" data-testid="brand-logo">
+        <div class="brand-mark" aria-hidden="true">M+</div>
+        <div class="brand-name">Medi<span>Book</span></div>
     </div>
 
     <div class="profile-dropdown">
@@ -34,41 +34,66 @@
     </div>
 </header>
 
-    <!-- Main Content -->
-    <div class="appointment-container">
-        <h1>Book Your Appointment</h1>
-        <form id="appointmentForm" action="/book" method="GET">
-            <!-- Location Dropdown -->
-            <label for="location">Choose a Location:</label>
-            <select id="location" name="location" required aria-label="Choose a Location">
-                <option value="">Select a location</option>
-                <option value="MG Road">MG Road</option>
-                <option value="Indiranagar">Indiranagar</option>
-                <option value="Koramangala">Koramangala</option>
-                <option value="Whitefield">Whitefield</option>
-                <option value="Jayanagar">Jayanagar</option>
-                <option value="HSR Layout">HSR Layout</option>
-                <option value="Electronic City">Electronic City</option>
-                <option value="Hebbal">Hebbal</option>
-                <option value="Yeshwanthpur">Yeshwanthpur</option>
-                <option value="Rajajinagar">Rajajinagar</option>
-            </select>
+<main>
+<div class="appointment-container">
 
-            <!-- Search for Specialization -->
-            <label for="specialization">Search for Specialization:</label>
-            <input type="text" id="specialization" name="specialization" placeholder="Enter specialization (e.g., Cardiologist)" required aria-label="Search for Specialization">
+    <h1 class="title">Find and Book</h1>
 
-            <!-- Submit Button -->
-            <button type="submit" class="btn">Search Doctor</button>
-        </form>
-    </div>
+    <!-- ✅ ADD FORM BACK -->
+    <form id="appointmentForm">
 
-    <!-- Footer -->
-    <footer class="app-footer">
-        <p>&copy; 2024 Chikitsa App. All rights reserved.</p>
-        <p>Contact us: support@Chikitsa.com | Phone: +91 12-345-6789</p>
-    </footer>
+        <div class="search-container">
 
-<script src="../js/homeValidate.js"></script>
+            <div class="location-box">
+                <select id="location" aria-label="Select Location">
+                    <option value="">📍 Select Location</option>
+                    <option>MG Road</option>
+                    <option>Indiranagar</option>
+                    <option>Koramangala</option>
+                    <option>Whitefield</option>
+                    <option>Jayanagar</option>
+                    <option>HSR Layout</option>
+                    <option>Electronic City</option>
+                    <option>Hebbal</option>
+                    <option>Yeshwanthpur</option>
+                    <option>Rajajinagar</option>
+                </select>
+            </div>
+
+            <div class="search-wrapper">
+                <input 
+                    id="specialization"
+                    type="text"
+                    placeholder="Search doctors, clinics, specialties..."
+                    autocomplete="off"
+                />
+
+                <div id="suggestionBox" class="suggestion-box hidden">
+                    <div class="section-title">Popular Searches</div>
+                    <div id="popularContainer" class="popular-container"></div>
+
+                    <div class="section-title">Common Specialities</div>
+                    <div id="specialityList"></div>
+                </div>
+            </div>
+
+        </div>
+        <button type="submit" class="btn">Search</button>
+
+    </form>
+
+</div>
+</main>
+
+    
+
+<script type="module" src="../js/homeValidate.js"></script>
+<script type="module" src="../js/dashboard.js"></script>
+
 </body>
+<!-- Footer -->
+    <footer class="app-footer">
+        <p>&copy; 2024 MediBook App. All rights reserved.</p>
+        <p>Contact us: support@medibook.com | Phone: +91 12-345-6789</p>
+    </footer>
 </html>

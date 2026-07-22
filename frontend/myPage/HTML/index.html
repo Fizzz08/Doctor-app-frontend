@@ -5,13 +5,30 @@
     <title>Sign-up Form</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body class="gradient-custom-3">
-<!-- Success message box -->
 <div id="success-message" class="successMessageBox"></div>
 
 <div class="container gradient-custom-4">
     <h2>Create an account</h2>
-    <form id="myForm" action="/register" method="post">
+
+    <form id="myForm" method="post">
+
+        <!-- ROLE SELECTION (NEW) -->
+        <div class="form-group">
+            <label>Register as</label>
+            <div class="role-selection">
+                <label>
+                    <input type="radio" name="role" value="USER" checked>
+                    User
+                </label>
+
+                <label style="margin-left:20px;">
+                    <input type="radio" name="role" value="DOCTOR">
+                    Doctor
+                </label>
+            </div>
+        </div>
 
         <div class="form-group">
             <label for="name">Your Name</label>
@@ -43,11 +60,10 @@
 
         <button type="submit" id="registerButton" disabled>Register</button>
 
-        <p>Already have an account? <a href="/myPage/HTML/login.html">Login here</a></p>
+        <p>Already have an account? <a id="loginLink" href="./login.html">Login here</a></p>
     </form>
 </div>
 
 <script src="../js/validate.js"></script>
-
 </body>
 </html>

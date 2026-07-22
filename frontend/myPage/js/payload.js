@@ -1,5 +1,5 @@
 export function getPayloadFromToken() {
-    const token = localStorage.getItem("token");  // or sessionStorage if that's what you use
+    const token = sessionStorage.getItem("token");  // or sessionStorage if that's what you use
     if (!token) return null;
 
     const base64Url = token.split('.')[1];
