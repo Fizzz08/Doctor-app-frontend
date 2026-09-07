@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" href="../css/doctor-dashboard.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <!-- ===== HEADER ===== -->
+    <header class="dashboard-header">
+
+        <div class="header-left">
+            <div class="logo-circle">D</div>
+            <div>
+                <h2 id="doctorNameHeading">Doctor Dashboard</h2>
+                <small>Manage appointments & availability</small>
+            </div>
+        </div>
+
+        <div class="header-center">
+            <span class="badge" id="todayCountBadge">Today: 0 Appointments</span>
+        </div>
+
+        <div class="header-right">
+            <div class="doctor-chip" id="doctorChip">
+                👨‍⚕️ Dr. Name
+            </div>
+            <button class="logout-btn" id="logoutBtn">Logout</button>
+        </div>
+    </header>
+
+    <!-- ===== PROFILE COMPLETION ===== -->
+    <section class="card profile-progress-card">
+        <h3>Profile Completion</h3>
+        <p>Complete your profile to appear in the user app.</p>
+
+        <div class="progress-bar">
+            <div class="progress-fill" style="width:60%" id="profileProgress"></div>
+        </div>
+        <small id="progressText">60% completed</small>
+
+        <div class="listing-row">
+            <span>List profile on user app</span>
+            <label class="switch">
+                <input type="checkbox" id="listingToggle" disabled>
+                <span class="slider"></span>
+            </label>
+            <span class="status-pill offline" id="listingStatus">OFFLINE</span>
+        </div>
+
+        <small class="hint">
+            Complete all mandatory fields to enable listing.
+        </small>
+    </section>
+
+    <!-- ===== PROFILE (EDITABLE) ===== -->
+    <section class="card profile-card">
+        <h3>Doctor Profile</h3>
+
+        <div class="profile-grid">
+            <div class="row">
+                <label for="docName">Full Name *</label>
+                <input type="text" id="docName" placeholder="Dr. John Doe">
+            </div>
+
+            <div class="row">
+                <label for="specialization">Specialization *</label>
+                <input type="text" id="specialization" placeholder="Cardiologist">
+            </div>
+
+            <div class="row">
+                <label for="experience">Years of Experience *</label>
+                <input type="number" id="experience" placeholder="8">
+            </div>
+
+            <div class="row">
+                <label for="location">Location *</label>
+                <input type="text" id="location" placeholder="Bangalore">
+            </div>
+
+            <div class="row">
+                <label for="fees">Consultation Fee *</label>
+                <input type="number" id="fees" placeholder="500">
+            </div>
+
+            <div class="row">
+                <label for="profileImage">Profile Image (optional)</label>
+                <input type="file" id="profileImage">
+            </div>
+        </div>
+
+        <button class="primary-btn" id="saveProfileBtn">
+            Save Profile
+        </button>
+    </section>
+
+    <!-- ===== AVAILABILITY ===== -->
+    <section class="card">
+        <h3>Availability Settings</h3>
+
+        <div class="row">
+            <label for="slotDuration">Slot Duration:</label>
+            <select id="slotDuration">
+                <option value="30">30 Minutes</option>
+                <option value="60" selected>60 Minutes</option>
+            </select>
+        </div>
+
+        <div class="row">
+            <label for="availableTime">Available Time</label>
+            <input type="hidden" id="availableTime" name="availableTime" required>
+
+            <div class="time-container">
+                <input type="text" id="startTime" placeholder="Start Time" style="width:120px;" readonly>
+                <input type="text" id="endTime" placeholder="End Time" style="width:120px;" readonly>
+            </div>
+        </div>
+
+        <div class="row days-row">
+            <div>
+                <label>Available Days</label>
+            </div>
+            <div class="days-container" id="daysContainer">
+                <div class="day-btn" data-day="Monday">Mon</div>
+                <div class="day-btn" data-day="Tuesday">Tues</div>
+                <div class="day-btn" data-day="Wednesday">Wed</div>
+                <div class="day-btn" data-day="Thursday">Thurs</div>
+                <div class="day-btn" data-day="Friday">Fri</div>
+                <div class="day-btn" data-day="Saturday">Sat</div>
+                <div class="day-btn" data-day="Sunday">Sun</div>
+            </div>
+        </div>
+
+        <button class="primary-btn" id="saveAvailabilityBtn">
+            Save Availability
+        </button>
+    </section>
+
+    <!-- ===== REQUESTS (UPDATED: ADDED ID ONLY) ===== -->
+    <section class="card" id="requestsSection">
+        <h3>Appointment Requests</h3>
+        <!-- Dynamic rows will be injected here by JS -->
+    </section>
+
+    <!--Pagination for Requests (REQUIRED FOR PAGINATION JS) -->
+    <div id="requestsPagination" class="pagination"></div>
+
+    <!-- ===== UPCOMING (UPDATED: ADDED TABLE ID ONLY) ===== -->
+    <section class="card">
+        <h3>Upcoming Appointments (Recent First)</h3>
+
+        <table id="upcomingTable">
+            <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <!-- Dynamic rows will be injected here -->
+            </tbody>
+        </table>
+    </section>
+
+    <!--Pagination for Upcoming (REQUIRED FOR PAGINATION JS) -->
+    <div id="upcomingPagination" class="pagination"></div>
+
+</div>
+
+<script src="../js/config.js"></script>
+<script src="../js/doctor-dashboard.js"></script>
+</body>
+</html>

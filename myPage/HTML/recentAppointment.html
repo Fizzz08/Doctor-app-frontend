@@ -13,10 +13,10 @@
 
 <!-- Header -->
 <header class="app-header">
-  <div class="logo-section">
-    <img src="../image/logo2.png" alt="App Logo" class="logo">
-    <span class="app-name">Chikitsa</span>
-  </div>
+  <div class="brand" data-testid="brand-logo">
+        <div class="brand-mark" aria-hidden="true">M+</div>
+        <div class="brand-name">Medi<span>Book</span></div>
+    </div>
 
   <div class="profile-dropdown">
     <div class="contain">
@@ -36,21 +36,25 @@
     </div>
   </div>
 </header>
-
-<!-- Main Content -->
 <main>
   <h2 class="recent-title">Recent Appointments</h2>
+  <div class="tabs">
+    <button id="activeTab" class="tab active" onclick="switchTab('active')">Active</button>
+    <button id="historyTab" class="tab" onclick="switchTab('history')">History</button>
+  </div>
+
   <div id="appointments-list"></div>
 </main>
 
 <!-- Footer -->
 <footer class="app-footer">
-  <p>&copy; 2024 Chikitsa App. All rights reserved.</p>
-  <p>Contact us: support@Chikitsa.com | Phone: +91 12-345-6789</p>
+  <p>&copy; 2024 MediBook App. All rights reserved.</p>
+  <p>Contact us: support@medibook.com | Phone: +91 12-345-6789</p>
 </footer>
 
-<script src="../js/recentApp.js"></script>
-<script src="../js/homeValidate.js"></script>
+<script src="../js/config.js"></script>
+<script type="module" src="../js/recentApp.js"></script>
+<script type="module" src="../js/homeValidate.js"></script>
 
 </body>
 </html>

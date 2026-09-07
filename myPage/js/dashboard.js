@@ -1,9 +1,4 @@
-const BASE_URL = window.location.hostname === "localhost"
-    ? "http://localhost:3000"
-    : "https://chikithsa.netlify.app";
-
-const apiBaseUrl = 'http://localhost:8080/api/v1/doctor';
-const token = localStorage.getItem('token');
+const token = sessionStorage.getItem('token');
 
 const tableBody = document.getElementById('tableBody');
 const fromSpan = document.getElementById('from');
@@ -22,12 +17,12 @@ let rowsPerPage = 6;
 async function fetchDoctors() {
     if (!token) {
         alert('Unauthorized access. Please log in again.');
-        window.location.href = BASE_URL + '/myPage/HTML/login.html';
+        window.location.href = '../HTML/loginDemo.html';
         return;
     }
 
     try {
-        const response = await fetch(`${apiBaseUrl}/getAll`, {
+        const response = await fetch(`${API_BASE_URL}/api/v1/doctor/getAll`, {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json'
@@ -127,7 +122,7 @@ async function saveDoctor(id) {
     });
 
     try {
-        const response = await fetch(`${apiBaseUrl}/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/api/v1/doctor/${id}`, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -199,7 +194,7 @@ async function addDoctor() {
     };
 
     try {
-        const response = await fetch(`${apiBaseUrl}/add`, {
+        const response = await fetch(`${API_BASE_URL}/api/v1/doctor/add`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -222,6 +217,7 @@ async function addDoctor() {
     }
 }
 
+
 const availableTimeInput = document.getElementById("availableTime");
 const startTimeInput = document.getElementById("startTime");
 const endTimeInput = document.getElementById("endTime");
@@ -243,7 +239,7 @@ function updateHiddenField() {
       availableTimeInput.value = "";
       return;
     }
-    availableTimeInput.value = `${start} - ${end}`;
+    availableTimeInput.value = `${start.toUpperCase()} - ${end.toUpperCase()}`;
   }
 }
 flatpickr(startTimeInput, {
@@ -286,7 +282,7 @@ async function deleteDoctor(id) {
     if (!confirm('Are you sure you want to delete this doctor?')) return;
 
     try {
-        const response = await fetch(`${apiBaseUrl}/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/api/v1/doctor/${id}`, {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
         });

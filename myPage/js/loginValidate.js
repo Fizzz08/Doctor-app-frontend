@@ -1,13 +1,6 @@
-const BASE_URL = window.location.hostname === "localhost"
-    ? "http://localhost:3000"  // Local Development
-    : "https://chikithsa.netlify.app"; // Netlify Deployment
-
-
-
 async function validateLoginForm(event) {
     event.preventDefault(); 
 
-    // const BASE_URL = "http://localhost:3000";
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
     const errorMessage = document.getElementById("error-message");
@@ -15,7 +8,7 @@ async function validateLoginForm(event) {
 
     try {
         // Send login request to backend
-        const response = await fetch("http://localhost:8080/api/login", {
+        const response = await fetch(`${API_BASE_URL}/api/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
@@ -31,15 +24,15 @@ async function validateLoginForm(event) {
         }
 
         if (data.token) {
-            localStorage.setItem("token", data.token);
+            sessionStorage.setItem("token", data.token);
             console.log("Token stored:", data.token);
 
-            // Retrieve token from localStorage
-            const storedToken = localStorage.getItem("token");
+            // Retrieve token from SessionStorage
+            const storedToken = sessionStorage.getItem("token");
             console.log("Retrieved token:", storedToken);
 
             if (!storedToken) {
-                console.error("No token found in localStorage");
+                console.error("No token found in SessionStorage");
                 errorMessage.style.display = "block";
                 errorMessage.textContent = "Token not found. Please try again.";
                 return;
@@ -47,7 +40,7 @@ async function validateLoginForm(event) {
 
             // Fetch the home page using the token
             try {
-                const homeResponse = await fetch("http://localhost:8080/api/Home", {
+                const homeResponse = await fetch(`${API_BASE_URL}/api/Home`, {
                     method: "GET",
                     headers: {
                         "Authorization": "Bearer " + storedToken, // Include token in the header
@@ -61,11 +54,17 @@ async function validateLoginForm(event) {
 
                 sessionStorage.setItem("userEmail", email);
                 sessionStorage.setItem("loggedIn", "true");
-                sessionStorage.setItem('role', data.role);      
+                // sessionStorage.setItem('role', data.role);  
+                const role = data.role?.trim().toUpperCase();
+                sessionStorage.setItem('role', role);
+                
                 if (data.role === 'ADMIN') {
-                    window.location.href = BASE_URL + '/myPage/HTML/admin-dashboard.html'; 
-                } else {
-                    window.location.href = BASE_URL + '/myPage/HTML/Home.html';
+                    window.location.href = "../HTML/admin-dashboard.html";
+                } else if(data.role === "DOCTOR") {
+                    window.location.href = '../HTML/doctor-dashboard.html';
+                }
+                else{
+                    window.location.href = '../HTML/Home.html';
                 }
                 
             } catch (homeError) {

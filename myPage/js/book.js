@@ -1,4 +1,4 @@
-const tkn = localStorage.getItem('token');
+const tkn = sessionStorage.getItem('token');
 window.onload = function () {
     const doctorData = JSON.parse(sessionStorage.getItem('doctorData'));
     const doctorsList = document.getElementById('doctorsList');
@@ -34,13 +34,23 @@ function createDoctorCard(doctor) {
             <p>${doctor.yearOfExp} years Experience</p>
             <p>₹${doctor.fees} Consultation fee at clinic</p>
         </div>
-        <button class="book-btn" onclick="openBookingModal('${doctor.name}', '${doctor.availableDays}')">Book Now</button>
+        <button class="book-btn" onclick="openBookingModal(${doctor.id}, '${doctor.name}', '${doctor.availableDays}')">Book Now</button>
     `;
     return card;
 }
 
-function openBookingModal(doctorName, availableDays) {
+function openBookingModal(doctorId, doctorName, availableDays) {
     const bookingModal = document.getElementById('bookingModal');
+    // Store selected doctor safely
+    sessionStorage.setItem("selectedDoctor", JSON.stringify({
+        doctorId: doctorId,
+        name: doctorName,
+        availableDays: availableDays
+    }));
+    sessionStorage.getItem("selectedDoctor");
+    console.log("doctorId:", doctorId);
+    console.log("doctorName:", doctorName);
+    console.log("available days:", availableDays);
     bookingModal.classList.remove('hidden');
     document.getElementById('modalDoctorName').textContent = doctorName;
     initializeCalendar(availableDays);
@@ -48,13 +58,14 @@ function openBookingModal(doctorName, availableDays) {
 
 // Function to initialize the calendar with available days
 function initializeCalendar(availableDays) {
+    console.log("availableDays raw:", availableDays);
     const dayMapping = {
         Sunday: 0, Monday: 1, Tuesday: 2,
         Wednesday: 3, Thursday: 4, Friday: 5, Saturday: 6
     };
 
     const allowedDays = availableDays.split(',').map(day => dayMapping[day.trim()]);
-
+    console.log("allowedDays numeric:", allowedDays);
     if (allowedDays.length === 0) {
         console.error("No available days to enable.");
         return;
@@ -67,8 +78,15 @@ function initializeCalendar(availableDays) {
         dateFormat: "Y-m-d", // Use a simple date format
         onChange: selectedDates => {
             if (selectedDates[0]) {
-                const doctorName = document.getElementById('modalDoctorName').textContent;
-                displayTimeSlots(selectedDates, doctorName); // Call to fetch and display slots
+
+                const doctor = JSON.parse(sessionStorage.getItem("selectedDoctor"));
+
+                if (!doctor || !doctor.doctorId) {
+                    console.error("Doctor ID not found in sessionStorage");
+                    return;
+                }
+
+                displayTimeSlots(selectedDates[0], doctor.doctorId);
             }
         }
     });
@@ -78,7 +96,7 @@ function initializeCalendar(availableDays) {
 
 
 // Function to fetch and display available and booked time slots
-function displayTimeSlots(selectedDate, doctorName) {
+function displayTimeSlots(selectedDate, doctorId) {
     if (!(selectedDate instanceof Date)) {
         selectedDate = new Date(selectedDate); // Ensure the selected date is a Date object
     }
@@ -100,14 +118,15 @@ function displayTimeSlots(selectedDate, doctorName) {
         return;
     }
 
-    const availableSlotsFetch = fetch(`http://localhost:8080/api/v1/doctor/availableSlot?doctorName=${encodeURIComponent(doctorName)}`, {
+    console.log(doctorId);
+    const availableSlotsFetch = fetch(`${API_BASE_URL}/api/v1/doctor/availableSlot?doctorId=${doctorId}`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + tkn
         }
     });
 
-    const bookedSlotsFetch = fetch(`http://localhost:8080/api/bookAppointment/bookedSlots?doctorName=${encodeURIComponent(doctorName)}&date=${formattedDate}`, {
+    const bookedSlotsFetch = fetch(`${API_BASE_URL}/api/v1/doctor/bookedSlots?doctorId=${doctorId}&date=${formattedDate}`, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + tkn
@@ -122,17 +141,18 @@ function displayTimeSlots(selectedDate, doctorName) {
             }
             return Promise.all(responses.map(response => response.json())); // Parse responses to JSON
         })
-        .then(([availableSlots, bookedSlots]) => {
-            console.log('Available Slots:', availableSlots); // Debugging: Log the available slots
-            console.log('Booked Slots:', bookedSlots); // Debugging: Log the booked slots
+        .then(([availableResponse, bookedSlots]) => {
 
-            // Generate hourly time slots based on available slots
+            console.log("BOOKED SLOTS RESPONSE:", bookedSlots);
+            const availableSlots = availableResponse.availableTime;
+            const slotDuration = availableResponse.slotDuration;
+
             const allTimeSlots = availableSlots.map(slot => {
                 const [startTime, endTime] = slot.split(' - ');
-                return generateHourlySlots(startTime, endTime); // Generate hourly slots
-            }).flat(); // Flatten to get all individual slots
+                return generateSlots(startTime, endTime, slotDuration);
+            }).flat();
 
-            renderTimeSlots(allTimeSlots, bookedSlots); // Render the slots
+            renderTimeSlots(allTimeSlots, bookedSlots);
         })
         .catch(error => {
             console.error('Error fetching slots:', error);
@@ -141,105 +161,149 @@ function displayTimeSlots(selectedDate, doctorName) {
         });
 }
 
-function generateHourlySlots(startTimeStr, endTimeStr) {
+//Dynamic slot generation
+function generateSlots(startTimeStr, endTimeStr, slotDurationMinutes) {
     const slots = [];
 
-    // Helper function to convert time string (e.g., "9:00 AM") to Date object
     const parseTimeToDate = (timeStr) => {
         const [time, modifier] = timeStr.split(" ");
-        const [hours, minutes] = time.split(":");
-        const hours24 = (modifier === "PM" && hours !== "12") ? parseInt(hours) + 12 : parseInt(hours);
-        return new Date(1970, 0, 1, hours24, minutes); // 1970-01-01 is a dummy date
+        let [hours, minutes] = time.split(":");
+
+        let hoursNum = parseInt(hours);
+
+        // Fix 12 AM / 12 PM issue properly
+        if (modifier === "AM" && hoursNum === 12) {
+            hoursNum = 0;
+        }
+        if (modifier === "PM" && hoursNum !== 12) {
+            hoursNum += 12;
+        }
+
+        return new Date(1970, 0, 1, hoursNum, parseInt(minutes));
     };
 
-    const startTime = parseTimeToDate(startTimeStr);
+    let current = parseTimeToDate(startTimeStr);
     const endTime = parseTimeToDate(endTimeStr);
 
-    // Generate hourly slots
-    while (startTime < endTime) {
-        const slotEndTime = new Date(startTime);
-        slotEndTime.setHours(startTime.getHours() + 1);
+    while (current < endTime) {
+        const next = new Date(current.getTime() + slotDurationMinutes * 60000);
 
-        // Format the slot in "start - end" format
-        const formattedSlot = `${startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })} - ${slotEndTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}`;
+        // Prevent overflow beyond doctor's availability
+        if (next > endTime) break;
+
+        const formattedSlot =
+            `${current.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}` +
+            ` - ` +
+            `${next.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}`;
+
         slots.push(formattedSlot);
 
-        // Increment start time by 1 hour
-        startTime.setHours(startTime.getHours() + 1);
+        current = next;
     }
 
     return slots;
 }
 
 function renderTimeSlots(allTimeSlots, bookedSlots) {
+
     const timeGrid = document.getElementById('timeGrid');
-    timeGrid.innerHTML = ''; // Clear existing slots
+    timeGrid.innerHTML = '';
 
-    // Normalize booked slots for consistent comparison
-    const normalizedBookedSlots = bookedSlots.map(slot => slot.trim().toLowerCase());
-
-    // Get the selected date from the date picker
     const datePicker = document.getElementById('datePicker');
-    const selectedDate = datePicker.value; // Format: YYYY-MM-DD
+    const selectedDate = datePicker.value;
 
-    // If no date is selected, do not render any slots
     if (!selectedDate) {
-        timeGrid.innerHTML = '<div class="no-slots-msg">Please select a date to view available slots.</div>';
+        timeGrid.innerHTML =
+            '<div class="no-slots-msg">Please select a date to view available slots.</div>';
         return;
     }
 
-    // Get the current local date and time
     const currentTime = new Date();
-
-    // Track if any slots are available
     let hasAvailableSlots = false;
 
-    allTimeSlots.forEach(slot => {
-        // Combine the selected date with the slot's start time
-        const startTimeStr = slot.split(' - ')[0].trim(); // Extract start time (e.g., "09:00 AM")
-        const slotStartTime = new Date(`${selectedDate} ${startTimeStr}`); // Create a Date object
+    //Helper to parse "09:00 AM - 10:00 AM" into minutes
+    function parseTimeRange(startStr, endStr) {
 
-        // Check if the slot's start time is in the past
+        const parse = (timeStr) => {
+            const [time, modifier] = timeStr.split(" ");
+            let [hours, minutes] = time.split(":").map(Number);
+
+            if (modifier === "PM" && hours !== 12) hours += 12;
+            if (modifier === "AM" && hours === 12) hours = 0;
+
+            return hours * 60 + minutes;
+        };
+
+        return {
+            start: parse(startStr),
+            end: parse(endStr)
+        };
+    }
+
+    const parsedBookedSlots = bookedSlots.map(slot => ({
+        ...parseTimeRange(slot.startTime, slot.endTime),
+        status: slot.status
+    }));
+
+
+    allTimeSlots.forEach(slot => {
+
+        const startTimeStr = slot.split(' - ')[0].trim();
+        const slotStartTime = new Date(`${selectedDate} ${startTimeStr}`);
+
         if (slotStartTime < currentTime) {
-            return; // Skip this slot as its start time has already passed
+            return;
         }
 
-        // If we reach here, there is at least one available slot
         hasAvailableSlots = true;
 
         const slotDiv = document.createElement('div');
         slotDiv.classList.add('grid-item');
-        slotDiv.textContent = slot; // Display the time slot (e.g., "09:00 AM - 10:00 AM")
+        slotDiv.textContent = slot;
 
-        // Normalize current slot for comparison
-        const normalizedSlot = slot.trim().toLowerCase();
+        const [startStr, endStr] = slot.split(' - ').map(t => t.trim());
+        const currentSlotTime = parseTimeRange(startStr, endStr);
 
-        // Disable slots that are already booked
-        if (normalizedBookedSlots.includes(normalizedSlot)) {
-            slotDiv.classList.add('disabled'); // Add a class for disabled styling
-            slotDiv.textContent += ' (Booked)'; // Append text indicating booked status
+        //Overlap detection
+        let isBooked = false;
+
+        for (let booked of parsedBookedSlots) {
+
+            if (booked.status === 'REJECTED') {
+                continue;
+            }
+            if (
+                currentSlotTime.start < booked.end &&
+                currentSlotTime.end > booked.start
+            ) {
+                isBooked = true;
+                break;
+            }
+        }
+
+        if (isBooked) {
+            slotDiv.classList.add('disabled');
+            slotDiv.textContent += ' (Booked)';
         } else {
-            // Add event listener to select the time slot
             slotDiv.addEventListener('click', () => {
-                if (!slotDiv.classList.contains('disabled')) {
-                    // Deselect any previously selected slot
-                    const previouslySelectedSlot = document.querySelector('.grid-item.selected');
-                    if (previouslySelectedSlot) {
-                        previouslySelectedSlot.classList.remove('selected');
-                    }
 
-                    // Select the new slot
-                    slotDiv.classList.add('selected');
+                const previouslySelected =
+                    document.querySelector('.grid-item.selected');
+
+                if (previouslySelected) {
+                    previouslySelected.classList.remove('selected');
                 }
+
+                slotDiv.classList.add('selected');
             });
         }
 
         timeGrid.appendChild(slotDiv);
     });
 
-    // If no slots are available, display a message
     if (!hasAvailableSlots) {
-        timeGrid.innerHTML = '<div class="no-slots-msg">Sorry, there are no available slots for the selected date.</div>';
+        timeGrid.innerHTML =
+            '<div class="no-slots-msg">Sorry, there are no available slots for the selected date.</div>';
     }
 }
 
@@ -263,16 +327,24 @@ function openModal(doctorName, availableDays) {
 // Function to confirm the booking
 async function confirmBooking() {
     try {
+        
         const doctorName = document.getElementById('modalDoctorName').textContent;
 
         if (!tkn) {
             alert('You are not authenticated. Please log in first.');
-            window.location.href = 'login.html';
+            window.location.href = '../HTML/loginDemo.html';
+            return;
+        }
+
+        const doctor = JSON.parse(sessionStorage.getItem("selectedDoctor"));
+
+        if (!doctor || !doctor.doctorId) {
+            console.error("Doctor ID missing");
             return;
         }
 
         // Fetch doctor details
-        const doctorResponse = await fetch(`http://localhost:8080/api/v1/doctor/details?doctorName=${encodeURIComponent(doctorName)}`, {
+        const doctorResponse = await fetch(`${API_BASE_URL}/api/v1/doctor/details/${doctor.doctorId}`, {
             headers: {
                 'Authorization': 'Bearer ' + tkn
             }
@@ -284,10 +356,9 @@ async function confirmBooking() {
         const doctorData = await doctorResponse.json();
         console.log('Doctor Data:', doctorData);
 
-        sessionStorage.setItem('doctorId', doctorData.doctorId);
 
         // Fetch user details (from token)
-        const userResponse = await fetch("http://localhost:8080/api/userdetails", {
+        const userResponse = await fetch(`${API_BASE_URL}/api/userdetails`, {
             headers: {
                 'Authorization': 'Bearer ' + tkn
             }
@@ -316,13 +387,18 @@ async function confirmBooking() {
             return;
         }
 
-        // Retrieve stored session data
-        const userName = sessionStorage.getItem('userName');
-        const userId = sessionStorage.getItem('userId');
-        const doctorId = sessionStorage.getItem('doctorId');
+        const [startTime, endTime] = selectedSlot.textContent
+        .split(' - ')
+        .map(t => t.trim());
 
-        if (!userId || !doctorId) {
-            alert("Error: Missing user or doctor details. Please try again.");
+        const userId = userData.userId;
+        const userName = userData.userName;
+
+        const selectedDoctor = JSON.parse(sessionStorage.getItem("selectedDoctor"));
+
+
+        if (!userId || !doctor.doctorId) {
+            alert("Error: Missing user or doctor details...");
             return;
         }
 
@@ -333,8 +409,9 @@ async function confirmBooking() {
             doctorName,
             appointmentDate: selectedDate,
             dayOfAppointment: dayOfWeek,
-            timeOfAppointment: selectedSlot.textContent,
-            doctor: { doctorId: doctorId },
+            startTime: startTime.toUpperCase(),
+            endTime: endTime.toUpperCase(),
+            doctor: { doctorId: doctor.doctorId },
             user: { id: userId, name: userName }
         };
 
@@ -344,11 +421,14 @@ async function confirmBooking() {
 
     if (!tkn) {
         alert('Session expired. Please log in again.');
-        window.location.href = BASE_URL + '/myPage/HTML/login.html';
+        window.location.href = "../HTML/loginDemo.html";
         return;
     }
 
-    const bookingResponse = await fetch('http://localhost:8080/api/bookAppointment/book', {
+    console.log("start:", startTime);
+    console.log("end:", endTime);
+
+    const bookingResponse = await fetch(`${API_BASE_URL}/api/bookAppointment/book`, {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + tkn,

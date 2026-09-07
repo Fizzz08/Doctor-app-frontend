@@ -1,0 +1,439 @@
+/* ===== Base ===== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f9fc;
+}
+
+.dashboard-container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 20px auto;
+}
+
+/* ===== HEADER ===== */
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+
+    background: white;
+    padding: 14px 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+/* Left side */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 230px;
+}
+
+.logo-circle {
+    width: 38px;
+    height: 38px;
+    background: #66c7ff;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.header-left h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #007bff;
+}
+
+.header-left small {
+    color: #666;
+    font-size: 12px;
+}
+
+/* Center */
+.badge {
+    background: #e9f7ff;
+    color: #007bff;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Right */
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.doctor-chip {
+    background: #f3f8fc;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.logout-btn {
+    background: #66c7ff;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background: #0098cc;
+}
+
+/* ===== Cards ===== */
+
+.card {
+    background: white;
+    padding: 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 18px;
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+/* ===== PROFILE COMPLETION ===== */
+
+.profile-progress-card p {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background: #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: #66c7ff;
+    transition: width 0.3s ease;
+}
+
+.missing-list {
+    margin: 10px 0;
+    padding-left: 18px;
+    color: #555;
+    font-size: 14px;
+}
+
+.listing-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+/* Toggle switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 22px;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background: #ccc;
+    border-radius: 22px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.3s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+input:checked + .slider {
+    background: #28a745;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* status pills */
+.status-pill {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.offline {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.live {
+    background: #d4edda;
+    color: #155724;
+}
+
+.hint {
+    display: block;
+    margin-top: 8px;
+    color: #777;
+    font-size: 12px;
+}
+
+/* ===== Rows ===== */
+.row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+/* Fix label width so all inputs start aligned */
+.row label {
+    width: 150px;
+    font-weight: 500;
+}
+
+select,
+input[type="text"] {
+    padding: 7px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    width: 285px;
+}
+
+/* ===== Buttons ===== */
+
+.primary-btn {
+    background: #66c7ff;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.primary-btn:hover {
+    background: #0098cc;
+}
+
+/* ===== Appointment Requests ===== */
+
+.appointment-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.accept-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    margin-right: 6px;
+    cursor: pointer;
+}
+
+.reject-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* ===== Table ===== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.status {
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+}
+
+.confirmed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+/* ===== Profile Form ===== */
+
+.profile-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-card input[type="text"],
+.profile-card input[type="number"],
+.profile-card input[type="file"] {
+    width: 250px;
+}
+
+.profile-card .row {
+    align-items: center;
+}
+
+.profile-card label {
+    width: 170px;
+    font-weight: 500;
+}
+
+
+/* ===== Time & Days Section ===== */
+.time-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.time-container input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.time-container input:focus {
+    outline: none;
+    border-color: #66c7ff;
+    box-shadow: 0 0 4px rgba(102, 199, 255, 0.4);
+}
+
+
+/* Days should appear below input with spacing */
+.days-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 2px;
+    margin-left: 40px;
+    resize: none;
+    min-height: 40px;
+    overflow-y: auto;
+}
+
+.day-btn {
+    padding: 10px 12px;
+    border-radius: 20px;
+    background: #f3f8fc;
+    border: 1px solid #e0eef7;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+
+.day-btn:hover {
+    background: #e9f7ff;
+    border-color: #66c7ff;
+}
+
+/* Selected day (active state) */
+.day-btn.selected {
+    background: #66c7ff;
+    color: white;
+    border-color: #66c7ff;
+    font-weight: 500;
+}
+
+/* ===============================
+   PAGINATION STYLING
+=============================== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 15px 0 25px 0;
+    font-family: inherit;
+}
+
+.pagination button {
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid #d0d7de;
+    background-color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+    background-color: #f0f4ff;
+    border-color: #4f6ef7;
+    color: #4f6ef7;
+}
+
+.pagination button:disabled {
+    background-color: #f3f3f3;
+    border-color: #e0e0e0;
+    color: #9e9e9e;
+    cursor: not-allowed;
+}
+
+.pagination span {
+    font-weight: 600;
+    color: #333;
+    font-size: 14px;
+}

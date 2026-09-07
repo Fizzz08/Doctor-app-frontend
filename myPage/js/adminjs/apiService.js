@@ -1,21 +1,13 @@
-// API base URLs configuration
-const BASE_URL = window.location.hostname === "localhost"
-    ? "http://localhost:3000"
-    : "https://chikithsa.netlify.app";
-
-const apiBaseUrl = 'http://localhost:8080/api/v1/doctor';
-
-
 //Fetches all doctors from the API
 export async function fetchAllDoctors() {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     if (!token) {
         alert('Unauthorized access. Please log in again.');
         window.location.href = BASE_URL + '/myPage/HTML/login.html';
         return;
     }
 
-    const response = await fetch(`${apiBaseUrl}/getAll`, {
+    const response = await fetch(`${API_BASE_URL}/getAll`, {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -34,8 +26,8 @@ export async function fetchAllDoctors() {
  * @throws {Error} If request fails
  */
 export async function updateDoctor(id, updatedDoctor) {
-    const token = localStorage.getItem('token');
-    const response = await fetch(`${apiBaseUrl}/${id}`, {
+    const token = sessionStorage.getItem('token');
+    const response = await fetch(`${API_BASE_URL}/api/v1/doctor/${id}`, {
         method: 'PUT',
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -55,8 +47,8 @@ export async function updateDoctor(id, updatedDoctor) {
  * @throws {Error} If request fails
  */
 export async function addNewDoctor(newDoctor) {
-    const token = localStorage.getItem('token');
-    const response = await fetch(`${apiBaseUrl}/add`, {
+    const token = sessionStorage.getItem('token');
+    const response = await fetch(`${API_BASE_URL}/api/v1/doctor/add`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -79,8 +71,8 @@ export async function addNewDoctor(newDoctor) {
  * @throws {Error} If request fails
  */
 export async function deleteDoctorById(id) {
-    const token = localStorage.getItem('token');
-    const response = await fetch(`${apiBaseUrl}/${id}`, {
+    const token = sessionStorage.getItem('token');
+    const response = await fetch(`${API_BASE_URL}/api/v1/doctor/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
     });

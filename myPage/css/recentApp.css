@@ -1,84 +1,191 @@
-/* Global Styles */
-body, html {
-    height: 100%;
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+
+:root {
+    --primary: #0ea5e9;          /* sky-500  */
+    --primary-600: #0284c7;      /* sky-600  */
+    --primary-700: #0369a1;      /* sky-700  */
+    --primary-900: #0c4a6e;      /* sky-900  */
+    --mint: #14b8a6;             /* teal-500 */
+    --bg: #f0f9ff;               /* sky-50   */
+    --surface: #ffffff;
+    --border: #e0f2fe;           /* sky-100  */
+    --border-strong: #bae6fd;    /* sky-200  */
+    --text: #0f172a;             /* slate-900 */
+    --text-muted: #475569;       /* slate-600 */
+    --text-soft: #64748b;        /* slate-500 */
+    --danger: #dc2626;
+    --success: #059669;
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 8px 24px rgba(2, 132, 199, 0.08);
+    --shadow-lg: 0 24px 60px rgba(2, 132, 199, 0.18);
+    --radius: 14px;
+    --radius-sm: 10px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #d0f0fc, #f0f9fe);
+    height: 100%;
+    font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--text);
+    background: var(--primary-900);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ensuring full width layout */
 main {
-    margin: 15px;
-    padding-top: 0;
+    display: flex; 
+    flex-direction: column;
 }
 
 
-/* Heading aligned to the left */
+/* Title */
 .recent-title {
-    text-align: left;
-    padding: 10px 20px;
-    margin-bottom: 15px;
-    margin-top: 0;
-    color: #2d639c;  /* Professional Blue */
-    font-size: 26px;  /* Bigger for clarity */
-    font-weight: bold;  /* Stronger emphasis */
-    border-left: 5px solid #007bff; /* Left border for styling */
-    background: linear-gradient(to right, rgba(0, 123, 255, 0.1), transparent); /* Light blue fade effect */
-    display: inline-block; /* Ensures background wraps correctly */
-    padding-left: 15px; /* Adjust spacing after border */
+    font-size: 26px;
+    font-weight: 600;
+    color: #2d639c;
+    margin-bottom: 20px;
+    border-left: 5px solid #2d639c;
+    padding-left: 12px;
 }
 
-
-/* Appointment Cards (No spaces between them) */
-#appointments-list {
-    width: 100%;
+/* Tabs */
+.tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
-.Text-Container{
-    display:flex;
-    align-items: center;
+.tab {
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    background: #e3f2fd;
+    color: #007bff;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tab.active {
+    background: #007bff; /* Classic blue background */
+    color: white; /* White text for contrast */
+    padding: 10px 18px; /* Padding for balance */
+    border-radius: 4px; /* Slight rounding for a classic look */
+    font-size: 14px; /* Standard font size */
+    font-weight: bold; /* Emphasize active tab */
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.2); /* Soft shadow for depth */
+    transition: background 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+}
+
+.tab.active:hover {
+    background: #0056b3; /* Slightly darker blue for hover */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Slightly stronger shadow */
+}
+
+/* Appointment Card */
+.Text-Container {
+    display: flex;
     justify-content: space-between;
-    background: #ffffff;
-    border-left: 4px solid #007bff;
-    padding: 15px;
+    align-items: center;
+    background: white;
+    padding: 18px;
+    margin-bottom: 6px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    color: #333;
-    margin: 0;
-    margin-bottom: 2px;
+    border-left: 4px solid #2d639c;
     border-radius: 0;
-    text-align: start;
 }
 
-.Status {
-    position: absolute;
-    right: 140px;
+.Text-Container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+/* Left Content */
+.appointment-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .appointment-card h3 {
     margin: 0;
     color: #007bff;
     font-size: 18px;
-}
-
-/* Styling for "No Appointments" and Error Cards */
-.no-appointments, .error-appointments {
-    border-left: 4px solid red;  /* Highlight error with red */
-    font-weight: bold;
-    background: #ffe6e6;  /* Light red for errors */
-    color: red;
-}
-
-.no-appointments, .error-appointments h3 {
-    margin: 0;
-    color: red;
-    font-size: 18px;
+    font-weight: 600;
 }
 
 .appointment-card p {
-    margin: 3px 0;
+    margin: 2px 0;
     font-size: 14px;
     color: #555;
 }
 
+/* Status Section */
+.Status {
+    text-align: right;
+}
+
+/* Status Badge */
+.status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Status Colors */
+.status.pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status.confirmed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status.expired {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.status.rejected {
+    background: #e2e3e5;
+    color: #383d41;
+}
+
+/* Pagination */
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.pagination button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.pagination button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Empty/Error */
+.no-appointments, .error {
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    background: #fff3f3;
+    color: red;
+    font-weight: 500;
+}
