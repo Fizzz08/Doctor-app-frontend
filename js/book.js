@@ -23,7 +23,7 @@ function createDoctorCard(doctor) {
 
     const imagePath = doctor.image
             ? `../${doctor.image}`
-            : '../image/default.jpg';
+            : './image/default.jpg';
 
     card.innerHTML = `
         <img src="${imagePath}" alt="Doctor Profile" class="profile-pic">
@@ -332,7 +332,7 @@ async function confirmBooking() {
 
         if (!tkn) {
             alert('You are not authenticated. Please log in first.');
-            window.location.href = '../HTML/loginDemo.html';
+            window.location.href = './loginDemo.html';
             return;
         }
 
@@ -421,7 +421,7 @@ async function confirmBooking() {
 
     if (!tkn) {
         alert('Session expired. Please log in again.');
-        window.location.href = "../HTML/loginDemo.html";
+        window.location.href = "./loginDemo.html";
         return;
     }
 

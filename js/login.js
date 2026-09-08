@@ -97,11 +97,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     sessionStorage.setItem('role', role);
                     
                     if (role === 'ADMIN') {
-                        window.location.href = "../HTML/admin-dashboard.html";
+                        window.location.href = "./admin-dashboard.html";
                     } else if (role === "DOCTOR") {
-                        window.location.href = '../HTML/doctor-dashboard.html';
+                        window.location.href = './doctor-dashboard.html';
                     } else {
-                        window.location.href = '../HTML/Home.html';
+                        window.location.href = './Home.html';
                     }
                 } else {
                     alert("No token found. Please try again.");

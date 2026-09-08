@@ -132,7 +132,7 @@
 
                 if (!tkn) {
                     alert('You are not authenticated. Please log in first.');
-                    window.location.href = '../HTML/loginDemo.html';  // Redirect to login if no token
+                    window.location.href = './loginDemo.html';  // Redirect to login if no token
                     return;
                 }
 
@@ -148,7 +148,7 @@
                     if (response.status === 401 || response.status === 403) {
                         alert('Session expired or unauthorized. Please log in again.');
                         sessionStorage.clear();
-                        window.location.href = '../HTML/loginDemo';
+                        window.location.href = './loginDemo';
                         return Promise.reject('Unauthorized');
                     }
                     return response.json();
@@ -156,12 +156,12 @@
                 .then(data => {
                     if (data.length === 0) {
                         sessionStorage.removeItem('doctorData');
-                        window.location.href = '../HTML/book.html';
+                        window.location.href = './book.html';
                     } else {
                         sessionStorage.setItem('doctorData', JSON.stringify(data));
                         sessionStorage.setItem('searchLocation', location);
                         sessionStorage.setItem('searchSpecialization', specialization);
-                        window.location.href = '../HTML/book.html';
+                        window.location.href = './book.html';
                         // window.location.href = `${API_BASE_URL}/api/bookAppointment/book?location=${encodeURIComponent(location)}&specialization=${encodeURIComponent(specialization)}`;
                     }
                 })
@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             sessionStorage.clear();
             sessionStorage.setItem("logoutMessage", "You’re now logged out.");
-            window.location.replace("../HTML/loginDemo.html");
+            window.location.replace("./loginDemo.html");
         });
     }
 });
