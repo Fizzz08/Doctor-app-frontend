@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     "registrationMessage",
                     "Registration successful! Please log in."
                 );
-                window.location.href = "loginDemo.html";
+                window.location.href = "login.html";
             } else {
                 alert(responseData.message || "Registration failed. Please try again.");
             }

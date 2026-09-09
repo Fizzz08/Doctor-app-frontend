@@ -587,7 +587,7 @@ document.addEventListener("DOMContentLoaded", function () {
         logoutBtn.addEventListener("click", () => {
             sessionStorage.removeItem("token");
             sessionStorage.clear();
-            window.location.replace("../HTML/loginDemo.html");
+            window.location.replace("./login.html");
         });
     }
 });

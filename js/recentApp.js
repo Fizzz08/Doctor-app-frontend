@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (!token) {
         appointmentsList.innerHTML = `<div class="appointment-card error">Session expired. Please log in again.</div>`;
-        setTimeout(() => window.location.href = '/loginDemo.html', 2000);
+        setTimeout(() => window.location.href = '/login.html', 2000);
         return;
     }
 
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (response.status === 401) {
                 sessionStorage.clear();
-                window.location.href = "/loginDemo.html";
+                window.location.href = "/login.html";
                 return;
             }
 
@@ -104,6 +104,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Logout
     document.getElementById("logoutButton")?.addEventListener("click", function () {
         sessionStorage.clear();
-        window.location.href = "/loginDemo.html";
+        window.location.href = "/login.html";
     });
 });

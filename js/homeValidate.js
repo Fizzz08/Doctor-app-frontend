@@ -132,7 +132,7 @@
 
                 if (!tkn) {
                     alert('You are not authenticated. Please log in first.');
-                    window.location.href = './loginDemo.html';  // Redirect to login if no token
+                    window.location.href = './login.html';  // Redirect to login if no token
                     return;
                 }
 
@@ -148,7 +148,7 @@
                     if (response.status === 401 || response.status === 403) {
                         alert('Session expired or unauthorized. Please log in again.');
                         sessionStorage.clear();
-                        window.location.href = './loginDemo';
+                        window.location.href = './login';
                         return Promise.reject('Unauthorized');
                     }
                     return response.json();
@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             sessionStorage.clear();
             sessionStorage.setItem("logoutMessage", "You’re now logged out.");
-            window.location.replace("./loginDemo.html");
+            window.location.replace("./login.html");
         });
     }
 });

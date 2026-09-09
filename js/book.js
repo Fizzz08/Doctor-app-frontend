@@ -332,7 +332,7 @@ async function confirmBooking() {
 
         if (!tkn) {
             alert('You are not authenticated. Please log in first.');
-            window.location.href = './loginDemo.html';
+            window.location.href = './login.html';
             return;
         }
 
@@ -421,7 +421,7 @@ async function confirmBooking() {
 
     if (!tkn) {
         alert('Session expired. Please log in again.');
-        window.location.href = "./loginDemo.html";
+        window.location.href = "./login.html";
         return;
     }
 

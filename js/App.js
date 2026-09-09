@@ -4,7 +4,7 @@ function App() {
   useEffect(() => {
     // Default landing → register page (set ?page=login to view login)
     const params = new URLSearchParams(window.location.search);
-    const page = params.get("page") === "login" ? "loginDemo.html" : "registerDemo.html";
+    const page = params.get("page") === "login" ? "login.html" : "register.html";
     window.location.replace(`/HTML/${page}`);
   }, []);
 
