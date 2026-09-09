@@ -22,9 +22,9 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            -t ${{ secrets.DOCKER_USERNAME }}/MedPlus:latest .
+            -t ${{ secrets.DOCKER_USERNAME }}/medplus:latest .
 
       - name: Push Docker image
         run: |
           docker push \
-            ${{ secrets.DOCKER_USERNAME }}/MedPlus:latest
+            ${{ secrets.DOCKER_USERNAME }}/medplus:latest
